@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------
+PROBLEM 1
+C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py
+Attempting to decipher:
+KFM YGV VEM VHK AWK YZK FWG RKF MSJ JZG XOJ MEM DJZ MAM SCJ GKF EJK TSF GJI STM ZSW MKF MEJ KBS XGJ SFH PMJ JIK FME JKR MSZ
+
+Letter Frequencies:
+[('M', 10.569105691056912), ('J', 9.75609756097561), ('K', 8.94308943089431), ('F', 6.504065040650407), ('S', 6.504065040650407), ('G', 4.878048780487805), ('E', 4.0650406504065035), ('Z', 4.0650406504065035), ('V', 2.4390243902439024), ('W', 2.4390243902439024), ('A', 1.6260162601626018), ('H', 1.6260162601626018), ('I', 1.6260162601626018), ('R', 1.6260162601626018), ('T', 1.6260162601626018), ('X', 1.6260162601626018), ('Y', 1.6260162601626018), ('B', 0.8130081300813009), ('C', 0.8130081300813009), ('D', 0.8130081300813009), ('O', 0.8130081300813009), ('P', 0.8130081300813009), ('L', 0.0), ('N', 0.0), ('Q', 0.0), ('U', 0.0)]
+
+Most frequent letter in ciphertext: M
+        with frequency: 10.57%
+Second most frequent letter in ciphertext: J
+        with frequency: 9.76%
+
+Key: (5, 8)
+
+Assuming that M is equivalent to e
+Assuming that J is equivalent to t
+
+Plaintext:
+onewillseldomgowrongifoneattributesextremeactionstovanityaverageonestohabitandpettyonestofear
+
+--------------------------------------------------------------------------
+PROBLEM 2
+C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py
+Attempting to decipher:
+XTS OCZ SIV JPI FCS XQE BEA SIV YIP SOF ICO SJR QYC VJJ SNS VJE VXT FSS BIA XEF OXT SPS DEA CXQ EBX TSY CVJ XTS JCO XIV ASC XRD EYO IAF EOO XTS YIX SFX TSD SVK XTE BXC MSC XRD EYO
+
+Letter Frequencies:
+[('S', 11.1731843575419), ('X', 8.938547486033519), ('C', 5.58659217877095), ('E', 5.58659217877095), ('I', 5.027932960893855), ('O', 5.027932960893855), ('T', 4.4692737430167595), ('V', 4.4692737430167595), ('J', 3.910614525139665), ('F', 3.35195530726257), ('Y', 3.35195530726257), ('A', 2.793296089385475), ('B', 2.2346368715083798), ('D', 2.2346368715083798), ('P', 1.675977653631285), ('Q', 1.675977653631285), ('R', 1.675977653631285), ('K', 0.5586592178770949), ('M', 0.5586592178770949), ('N', 0.5586592178770949), ('Z', 0.5586592178770949), ('G', 0.0), ('H', 0.0), ('L', 0.0), ('U', 0.0), ('W', 0.0)]
+
+Most frequent letter in ciphertext: S
+        with frequency: 11.17%
+Second most frequent letter in ciphertext: X
+        with frequency: 8.94%
+
+Key: (9, 0)
+
+Assuming that S is equivalent to e
+Assuming that X is equivalent to t
+
+Plaintext:
+thesizeandvarietyofoceanwavesraisedbywinddependonthreefactorsthevelocityofthewindthedistanceitblowsacrossthewaterthelengthoftimeitblows
+
+--------------------------------------------------------------------------
+PROBLEM 4 - NOTE THAT 'a' AND 'e' HAD TO BE CHOSEN THROUGH TRIAL AND ERROR
+C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py a e
+Attempting to decipher:
+STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ
+
+Letter Frequencies:
+[('F', 8.73015873015873), ('J', 7.936507936507936), ('M', 7.142857142857142), ('Y', 7.142857142857142), ('S', 6.349206349206349), ('T', 6.349206349206349), ('X', 4.761904761904762), ('B', 3.968253968253968), ('D', 3.1746031746031744), ('Q', 3.1746031746031744), ('N', 2.380952380952381), ('R', 2.380952380952381), ('U', 2.380952380952381), ('W', 2.380952380952381), ('G', 1.5873015873015872), ('L', 1.5873015873015872), ('P', 1.5873015873015872), ('I', 0.7936507936507936), ('O', 0.7936507936507936), ('Z', 0.7936507936507936), ('A', 0.0), ('C', 0.0), ('E', 0.0), ('H', 0.0), ('K', 0.0), ('V', 0.0)] 
+
+Most frequent letter in ciphertext: F
+        with frequency: 8.73%
+Second most frequent letter in ciphertext: J
+        with frequency: 7.94%
+
+Assuming that F is equivalent to a
+Assuming that J is equivalent to e
+
+Key: (1, 5)
+
+Plaintext:
+nowmysoulhathelbowroomshakespearehadkingjohnsayapparentlyhewasntonthewashingtonbeltwayatthetime
+
