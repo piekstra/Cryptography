@@ -1,0 +1,12 @@
+C:\Users\Meta\Documents\MTH491>python monoalphabetic_ciphers_4d.py
+keyword: comunist
+keyletter: z
+
+original table:
+['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+table with keyword inserted:
+['o', 'm', 'u', 'n', 'i', 's', 't', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'c']
+table with remaining letters inserted:
+['o', 'm', 'u', 'n', 'i', 's', 't', 'a', 'b', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'p', 'q', 'r', 'v', 'w', 'x', 'y', 'z', 'c']
+Ciphertext:
+RAI IQQIHUI JS RAI SPII KPIQQ BQ RAI PIFBOMFI PIOQJHOMFI OHN GJPOF HORVPI JS SPIINJG RAI UAOPOURIP JS RAI UIHQJPIN KPIQQ BQ RAI HJHNIQUPBKR UJHSVQBJH JS RZPOHHZ
