@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 1
 C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py
 Attempting to decipher:
@@ -20,7 +20,7 @@ Assuming that J is equivalent to t
 Plaintext:
 onewillseldomgowrongifoneattributesextremeactionstovanityaverageonestohabitandpettyonestofear
 
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 2
 C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py
 Attempting to decipher:
@@ -42,7 +42,7 @@ Assuming that X is equivalent to t
 Plaintext:
 thesizeandvarietyofoceanwavesraisedbywinddependonthreefactorsthevelocityofthewindthedistanceitblowsacrossthewaterthelengthoftimeitblows
 
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 4 - NOTE THAT 'a' AND 'e' HAD TO BE CHOSEN THROUGH TRIAL AND ERROR
 C:\Users\Meta\Documents\GitHub\Cryptography>python decryption_key.py a e
 Attempting to decipher:
@@ -63,4 +63,50 @@ Key: (1, 5)
 
 Plaintext:
 nowmysoulhathelbowroomshakespearehadkingjohnsayapparentlyhewasntonthewashingtonbeltwayatthetime
+
+------------------------------------------------------------------------
+PROBLEM 5 
+(trusty)piekstra@localhost:/opt/mth491$ python decryption_key.py e s
+Attempting to decipher:
+CWF FSK AAC KHW JAO ZHA NGA THO ZUW ENC AKK MUA KJA HR 
+
+Letter Frequencies:
+[('A', 14.814814814814813), ('K', 9.25925925925926), ('H', 7.4074074074074066), ('C', 5.555555555555555), ('W', 5.555555555555555), ('F', 3.7037037037037033), ('J', 3.7037037037037033), ('N', 3.7037037037037033), ('O', 3.7037037037037033), ('U', 3.7037037037037033), ('Z', 3.7037037037037033), ('E', 1.8518518518518516), ('G', 1.8518518518518516), ('M', 1.8518518518518516), ('R', 1.8518518518518516), ('S', 1.8518518518518516), ('T', 1.8518518518518516), ('B', 0.0), ('D', 0.0), ('I', 0.0), ('L', 0.0), ('P', 0.0), ('Q', 0.0), ('V', 0.0), ('X', 0.0), ('Y', 0.0)] 
+
+Most frequent letter in ciphertext: A
+        with frequency: 14.81%
+Second most frequent letter in ciphertext: K
+        with frequency: 9.26%
+
+Assuming that A is equivalent to e
+Assuming that K is equivalent to s 
+
+Key: (23, 12) 
+
+Plaintext:
+mollyseemstobeinterceptingourmessagesbeth
+
+------------------------------------------------------------------------
+PROBLEM 6
+(trusty)piekstra@localhost:/opt/mth491$ python decryption_key.py e i
+Attempting to decipher:
+ARO EXJ FPE LJB QLK RJB OLR PFK PQF QRQ FLK PLC EFD EBO IBX OKF KDF KZI RAF KDA RHB XKA QEB RKF SBO PFQ VLC KLO QEZ XOL IFK XTE BOB QEB VEX SBZ IXP PBP FKX AAF QFL KQL YXP HBQ YXI IQB XJP 
+
+Letter Frequencies:
+[('B', 7.4866310160427805), ('F', 7.4866310160427805), ('K', 6.951871657754011), ('Q', 6.417112299465241), ('X', 5.88235294117647), ('L', 5.347593582887701), ('P', 5.347593582887701), ('E', 4.81283422459893), ('O', 4.27807486631016), ('R', 3.7433155080213902), ('A', 3.2085561497326207), ('I', 3.2085561497326207), ('J', 2.13903743315508), ('D', 1.6042780748663104), ('Z', 1.6042780748663104), ('C', 1.06951871657754), ('H', 1.06951871657754), ('S', 1.06951871657754), ('V', 1.06951871657754), ('Y', 1.06951871657754), ('T', 0.53475935828877), ('G', 0.0), ('M', 0.0), ('N', 0.0), ('U', 0.0), ('W', 0.0)] 
+
+Most frequent letter in ciphertext: B
+        with frequency: 7.49%
+Second most frequent letter in ciphertext: F
+        with frequency: 7.49%
+
+Assuming that B is equivalent to e
+Assuming that F is equivalent to i 
+
+Key: (1, 23) 
+
+Plaintext:
+durhamishometonumerousinstitutionsofhigherlearningincludingdukeandtheuniversityofnorthcarolinawheretheyhaveclassesinadditiontobasketballteams
+
+
 
