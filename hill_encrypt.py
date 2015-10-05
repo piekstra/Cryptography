@@ -33,8 +33,19 @@ class HillSystem:
     def transpose(self, matrix):
         return [list(row) for row in zip(*matrix)]
     
+    ## finds the inverse of a matrix
     def invertMatrix(self, matrix):
-        return
+        if len(matrix) == 2:      
+            return [[-matrix[1][1], matrix[0][1]],
+                    [matrix[1][0], -matrix[0][0]]]
+        matrixDet = self.det(matrix)
+        adjugateMatrix = self.getAdjugateMatrix(matrix)
+        inverseMatrix = [[colEl/matrixDet for colEl in row] for row in adjugateMatrix]
+        return inverseMatrix
+        
+    ## inverts the key
+    def invertKey(self):
+        self.key = self.invertMatrix(self.key)
     
     def getAdjugateMatrix(self, matrix, transpose=True):
         # make sure the matrix is transposed
@@ -53,9 +64,7 @@ class HillSystem:
     def encrypt(self, msg, decrypt=False):
         encryptedMsg = ""
         for block in [msg[i:i+self.keyDim] for i in range(0,len(msg), self.keyDim)]:
-            print block
             for row in self.key:
-                print row
                 ciphertext = 0
                 for idx, char in enumerate(block):
                     plaintextInt = ord(char)-96
@@ -67,17 +76,22 @@ class HillSystem:
     def decrypt(self, msg):
         # remove spaces from the message
         msg = ''.join(msg.split())
+        # invert the key for decryption of the msg
+        self.invertKey()
         return self.encrypt(msg.lower(), decrypt=True)
     
 if __name__ == "__main__":
     #key = [[6, 3], [7,8]]
-    #key = [[3, 2], [8,5]]
-    key = ([[1,2,3],
+    key = [[3,2], [8,5]]
+    msg = "MUBYA QIQGN AEWOS RZQJI RZQKC LIZAG SXCJA AQFRM HO"
+    """key = ([[1,2,3],
             [0,1,4],
-            [5,6,0]])
+            [5,6,0]])"""
     cryptoSystem = HillSystem(key)
+    #print cryptoSystem.det(key)
+    #print cryptoSystem.getAdjugateMatrix(key)
+    #print cryptoSystem.invertMatrix(key)
+    #print key
     #print cryptoSystem.encrypt("testing")
-    #print cryptoSystem.decrypt("MUBYA QIQGN AEWOS")
-    print cryptoSystem.det(key)
-    print cryptoSystem.getAdjugateMatrix(key)
+    print cryptoSystem.decrypt(msg)
 
