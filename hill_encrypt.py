@@ -94,6 +94,8 @@ if __name__ == "__main__":
     parser.add_argument('--msg', dest='msg', action='store',
                        help='The message to encrypt or decrypt.', 
                        required=True)
+    parser.add_argument('--split', dest='splitN', action='store', type=int,
+                       default=5, help='The size of the split for encrypted plaintext.')
     parser.add_argument('--key', dest='key', action='store', nargs='+', type=int,
                        help='The key used to encrypt or decrypt.', 
                        required=True)
@@ -119,7 +121,8 @@ if __name__ == "__main__":
         print "Encrypting message:\n%s\n" % msg
         print "Using key:\n%s\n" % key
         ciphertext = cryptoSystem.encrypt(msg, key)
-        print "Ciphertext:\n%s\n" % ciphertext
+        splitText = ' '.join(ciphertext[i:i+args.splitN] for i in range(0, len(ciphertext), args.splitN))
+        print "Ciphertext:\n%s\n" % splitText
     else:
         print "Decrypting message:\n%s\n" % msg
         print "Using key:\n%s\n" % key
