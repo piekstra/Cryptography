@@ -5,15 +5,29 @@ class DigraphFrequency:
     def getFrequencies(self, msg):
         msgLen = len(msg)/2
         
-        frequencies = []
-        for digraph in commonDigraphs:
-            frequencies.append((digraph, (msg.count(digraph)/float(msgLen))*100))
-        frequencies = sorted(frequencies, key=lambda x: -x[1])    
-
-        # for digraph, frequency in frequencies:
-            # return print "%s frequency: %0.2f%%" % (digraph, frequency)
-            
-        return frequencies
+        # create a dict of digraphs in the message and their counts
+        digraphDict = {}
+        for i in range(0, len(msg)-1):
+            digraph = msg[i:i+2]
+            # if the digraph has not been discovered yet, add it to the dict
+            if digraph not in digraphDict:
+                digraphDict[digraph] = 1
+            # otherwise increment the count for that digraph
+            else:
+                digraphDict[digraph] += 1
+        
+        # determine the number of unique digraphs
+        numDigraphs = float(len(digraphDict))
+        
+        # update the dict to contain frequencies instead of counts
+        for digraph, count in digraphDict.iteritems():
+            digraphDict[digraph] = round(count / numDigraphs, 2)
+        
+        # get a list of tuples containing the digraphs and their corresponding frequencies
+        frequencies = digraphDict.items()
+        
+        # returns the list of tuples sorted from greatest frequency to least
+        return sorted(frequencies, key=lambda x: -x[1])    
     
     ## getDigraphFrequencies
     #
