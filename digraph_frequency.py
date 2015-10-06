@@ -21,7 +21,7 @@ class DigraphFrequency:
         
         # update the dict to contain frequencies instead of counts
         for digraph, count in digraphDict.iteritems():
-            digraphDict[digraph] = round(count / numDigraphs, 2)
+            digraphDict[digraph] = round((count / numDigraphs) * 100, 2)
         
         # get a list of tuples containing the digraphs and their corresponding frequencies
         frequencies = digraphDict.items()
@@ -39,7 +39,9 @@ class DigraphFrequency:
         
 # manual run
 diFreq = DigraphFrequency()
-testMsg = "STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ"
+#testMsg = "STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ"
+testMsg = "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV QGCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ"
 testMsg = testMsg.replace(' ', '')
 print testMsg
-print diFreq.getFrequencies(testMsg)
+print "Ciphertext digraph frequencies:\n%s\n" % diFreq.getFrequencies(testMsg)
+print "Common digraph frequencies:\n%s\n" % diFreq.getDigraphFrequencies()
