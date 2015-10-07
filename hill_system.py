@@ -80,17 +80,22 @@ class HillSystem:
                 encryptedMsg += chr(cipherInt+96)
         return encryptedMsg if decrypt else encryptedMsg.upper()
     
-    def decrypt(self, msg, key):
+    def decrypt(self, msg, key, invertKey=False):
         # remove spaces from the message
         msg = ''.join(msg.split())
         # invert the key for decryption of the msg
-        return self.encrypt(msg.lower(), self.invertMatrix(key), decrypt=True)
+        if invertKey:
+            return self.encrypt(msg.lower(), self.invertMatrix(key), decrypt=True)
+        return self.encrypt(msg.lower(), key, decrypt=True)
     
 if __name__ == "__main__":    
     parser = argparse.ArgumentParser(description='Encrypt or decrypt a message!')
     parser.add_argument('-d', '--decrypt', dest='decrypt', action='store_true',
                        default=False, help='Whether to decrypt the message. \
                        (Default action is to encrypt the message.)')
+    parser.add_argument('-i', '--invert', dest='invert', action='store_true',
+                       default=False, help='Whether to invert the key. \
+                       (Default action is to not invert the key.)')
     parser.add_argument('--msg', dest='msg', action='store',
                        help='The message to encrypt or decrypt.', 
                        required=True)
@@ -126,5 +131,5 @@ if __name__ == "__main__":
     else:
         print "Decrypting message:\n%s\n" % msg
         print "Using key:\n%s\n" % key
-        plaintext = cryptoSystem.decrypt(msg, key)
+        plaintext = cryptoSystem.decrypt(msg, key, invertKey=args.invert)
         print "Plaintext:\n%s\n" % plaintext
