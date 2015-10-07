@@ -7,17 +7,18 @@ class DigraphFrequency:
         
         # create a dict of digraphs in the message and their counts
         digraphDict = {}
-        for i in range(0, len(msg)-1):
+        for i in range(0, len(msg), 2):
             digraph = msg[i:i+2]
             # if the digraph has not been discovered yet, add it to the dict
             if digraph not in digraphDict:
-                digraphDict[digraph] = 1
+                digraphDict[digraph] = 1                
             # otherwise increment the count for that digraph
             else:
                 digraphDict[digraph] += 1
+            
         
         # determine the number of unique digraphs
-        numDigraphs = float(len(digraphDict))
+        numDigraphs = len(msg)/2.0
         
         # update the dict to contain frequencies instead of counts
         for digraph, count in digraphDict.iteritems():
@@ -40,7 +41,8 @@ class DigraphFrequency:
 # manual run
 diFreq = DigraphFrequency()
 #testMsg = "STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ"
-testMsg = "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV QGCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ"
+testMsg = "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV YQCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ"
+#testMsg = "HZD UGQ OBK GHZ TGY KOB HZP QNS XV"
 testMsg = testMsg.replace(' ', '')
 print testMsg
 print "Ciphertext digraph frequencies:\n%s\n" % diFreq.getFrequencies(testMsg)
