@@ -45,6 +45,21 @@ Using key:
 Plaintext:
 tsunamiscanoccuranywhereintheworldbutstrikemostfrequentlyalongthepacificoceansrimoffirethatstretchesfromalaskaacrosstojapandownthroughthephilippinesthesouthpacificislandsandovertosouthamericax
 
+------------------------------------------------------------------------
+Additional Problems PROBLEM 3
+
+C:\Users\Meta\Documents\GitHub\Cryptography>python binary_encrypt.py
+Encrypting:
+Hi!
+
+Using key:
+[[1, 0, 1, 1], [1, 0, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]
+
+Encrypted message in ASCII:
+=uH
+
+Encrypted message in binary:
+00111101 01110101 01001000
 
 
 
