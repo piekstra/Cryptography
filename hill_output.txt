@@ -1,4 +1,4 @@
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 1
 
 C:\Users\Meta\Documents\GitHub\Cryptography>python hill_encrypt.py --msg "It is lonely at the top; but you eat better." --key 6 3 7 8
@@ -11,7 +11,7 @@ Using key:
 Ciphertext:
 JOGGM VUHQX NKNVL MHYWZ MBWMG QVZLM EXXF
 
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 2
 
 C:\Users\Meta\Documents\GitHub\Cryptography>python hill_encrypt.py -d --msg "MUBYA QIQGN AEWOS RZQJI RZQKC LIZAG SXCJA AQFRM HO" --key 3 2 8 5
@@ -24,13 +24,27 @@ Using key:
 Plaintext:
 consciousnessisthatannoyingtimebetweennaps
 
---------------------------------------------------------------------------
+------------------------------------------------------------------------
 PROBLEM 3
 
-C:\Users\Meta\Documents\GitHub\Cryptography>python digraph_frequency.py
+(trusty)piekstra@localhost:/opt/mth491$ python digraph_frequency.py 
 KFHYYGIGMCEJSSTEBOEUGRWJTSDVYKZOZLIZKFHXKUUICWXFWJGAXQPBQAGVGXDVDGUEVGMIGYKQQPIPSCLLFYPMULKFHXPMHGMEVDKAVQGCEGUEALYYYZSZMPXZOCTXTRIMDIDVDGSXOZFFTSMEDVMEIMDVMPKOUJKODUBOAXBOORSLPZCWIMDVYGJWMIFQ
 Ciphertext digraph frequencies:
-[('DV', 4.14), ('BO', 2.07), ('GM', 2.07), ('ME', 2.07), ('MD', 2.07), ('FH', 2.07), ('KF', 2.07), ('YY', 2.07), ('VD', 2.07), ('IM', 2.07), ('WJ', 1.38), ('VM', 1.38), ('GU', 1.38), ('OZ', 1.38), ('HX', 1.38), ('PM', 1.38), ('ZO', 1.38), ('EV', 1.38), ('MI', 1.38), ('MP', 1.38), ('UE', 1.38), ('VY', 1.38), ('CE', 1.38), ('CW', 1.38), ('KO', 1.38), ('YK', 1.38), ('DG', 1.38), ('YG', 1.38), ('TS', 1.38), ('VG', 1.38), ('AX', 1.38), ('IG', 1.38), ('QP', 1.38), ('JT', 0.69), ('WM', 0.69), ('WI', 0.69), ('JS', 0.69), ('BQ', 0.69), ('JK', 0.69), ('JG', 0.69), ('WX', 0.69), ('RW', 0.69), ('RS', 0.69), ('RI', 0.69), ('GV', 0.69), ('JW', 0.69), ('GS', 0.69), ('GR', 0.69), ('GY', 0.69), ('GX', 0.69), ('GC', 0.69), ('GA', 0.69), ('LK', 0.69), ('GJ', 0.69), ('GI', 0.69), ('OO', 0.69), ('OE', 0.69), ('OD', 0.69), ('OC', 0.69), ('OA', 0.69), ('OU', 0.69), ('OR', 0.69), ('HY', 0.69), ('HG', 0.69), ('PS', 0.69), ('PZ', 0.69), ('PX', 0.69), ('EJ', 0.69), ('PB', 0.69), ('ZC', 0.69), ('PK', 0.69), ('PI', 0.69), ('ZF', 0.69), ('ZL', 0.69), ('ZM', 0.69), ('EI', 0.69), ('SM', 0.69), ('ZK', 0.69), ('ED', 0.69), ('EG', 0.69), ('EA', 0.69), ('EB', 0.69), ('EU', 0.69), ('ZS', 0.69), ('MC', 0.69), ('UU', 0.69), ('MH', 0.69), ('MU', 0.69), ('UL', 0.69), ('UI', 0.69), ('UJ', 0.69), ('UG', 0.69), ('UB', 0.69), ('FQ', 0.69), ('FT', 0.69), ('FW', 0.69), ('FY', 0.69), ('FF', 0.69), ('XK', 0.69), ('XO', 0.69), ('CL', 0.69), ('XB', 0.69), ('XF', 0.69), ('XZ', 0.69), ('XP', 0.69), ('XQ', 0.69), ('XT', 0.69), ('CT', 0.69), ('SZ', 0.69), ('KA', 0.69), ('SX', 0.69), ('SS', 0.69), ('ST', 0.69), ('KQ', 0.69), ('KU', 0.69), ('SL', 0.69), ('SC', 0.69), ('KZ', 0.69), ('SD', 0.69), ('DK', 0.69), ('DI', 0.69), ('YZ', 0.69), ('YP', 0.69), ('DU', 0.69), ('LF', 0.69), ('TX', 0.69), ('LL', 0.69), ('TR', 0.69), ('LI', 0.69), ('LP', 0.69), ('TE', 0.69), ('LY', 0.69), ('IZ', 0.69), ('AG', 0.69), ('IP', 0.69), ('AL', 0.69), ('VQ', 0.69), ('XD', 0.69), ('AV', 0.69), ('IC', 0.69), ('ID', 0.69), ('IF', 0.69), ('QQ', 0.69), ('QA', 0.69), ('QG', 0.69)]
+[('DV', 6.25), ('BO', 3.13), ('ME', 3.13), ('KF', 3.13), ('IM', 3.13), ('DG', 2.08), ('WJ', 2.08), ('YG', 2.08), ('TS', 2.08), ('PM', 2.08), ('HX', 2.08), ('CW', 2.08), ('MI', 2.08), ('MP', 2.08), ('UE', 2.08), ('KO', 2.08), ('FQ', 1.04), ('YK', 1.04), ('HY', 1.04), ('DI', 1.04), ('YY', 1.04), ('ZO', 1.04), ('FF', 1.04), ('DU', 1.04), ('HG', 1.04), ('TX', 1.04), ('PZ', 1.04), ('LL', 1.04), ('VG', 1.04), ('TR', 1.04), ('JW', 1.04), ('PB', 1.04), ('OZ', 1.04), ('FY', 1.04), ('TE', 1.04), ('ZL', 1.04), ('GV', 1.04), ('IZ', 1.04), ('VD', 1.04), ('GR', 1.04), ('EJ', 1.04), ('IP', 1.04), ('EG', 1.04), ('SL', 1.04), ('XF', 1.04), ('AL', 1.04), ('GY', 1.04), ('GX', 1.04), ('XZ', 1.04), ('SC', 1.04), ('GC', 1.04), ('GA', 1.04), ('EU', 1.04), ('AX', 1.04), ('XQ', 1.04), ('IG', 1.04), ('OR', 1.04), ('QP', 1.04), ('KA', 1.04), ('SX', 1.04), ('MC', 1.04), ('VQ', 1.04), ('SS', 1.04), ('OC', 1.04), ('SZ', 1.04), ('QA', 1.04), ('UL', 1.04), ('KQ', 1.04), ('YZ', 1.04), ('UI', 1.04), ('KU', 1.04), ('UJ', 1.04)]
 
 Common digraph frequencies:
 [('TH', 1.52), ('HE', 1.28), ('IN', 0.94), ('ER', 0.94), ('AN', 0.82), ('RE', 0.68), ('ND', 0.63), ('AT', 0.59), ('ON', 0.57)]
+
+(trusty)piekstra@localhost:/opt/mth491$ python hill_system.py -d --msg "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV YQCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ" --key 6 1 11 22
+Decrypting message:
+KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV YQCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ
+
+Using key:
+[[6, 1], [11, 22]]
+
+Plaintext:
+tsunamiscanoccuranywhereintheworldbutstrikemostfrequentlyalongthepacificoceansrimoffirethatstretchesfromalaskaacrosstojapandownthroughthephilippinesthesouthpacificislandsandovertosouthamericax
+
+
+
+
