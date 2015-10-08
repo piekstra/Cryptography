@@ -1,5 +1,5 @@
 import binascii, math
-from hill_system import HillSystem
+from common.matrix_operations import MatrixOperations
 
 # message to encrypt
 msg = "Hi!"
@@ -18,7 +18,7 @@ print "Using key:\n%s\n" % key
 # get the binary representation of the message
 binMsg = ''.join(format(ord(ch), 'b').zfill(8) for ch in msg)
 # set up a reference to the crypto system
-cryptoSystem = HillSystem()
+matrixOps = MatrixOperations()
 
 # holds the encrypted message
 encryptedMsg = ""
@@ -31,7 +31,7 @@ for i in range(0, len(binMsg), keyDim):
     # extract a block from the message
     binBlock = map(int, binMsg[i:i+keyDim])
     # encrypt the block using the key
-    encryptedBlockMatrix = cryptoSystem.matrixMult(key, map(list, zip(binBlock)))
+    encryptedBlockMatrix = matrixOps.matrixMult(key, map(list, zip(binBlock)))
     # because the encrypted block is an n x 1 matrix, the rows
     # need to be joined into a 1D list and then to a string
     encryptedBlockString = ''.join([str(row[0]%2) for row in encryptedBlockMatrix])

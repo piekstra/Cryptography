@@ -1,4 +1,4 @@
-from letter_frequency import LetterFrequency
+from common.letter_frequency import LetterFrequency
 import sys
 
 # Problem 1's Message
