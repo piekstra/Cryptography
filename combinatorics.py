@@ -1,4 +1,4 @@
-import math
+import math, argparse
 
 ## Combinatorics
 #
@@ -43,12 +43,35 @@ class Combinatorics:
                 r = n-r
             return self.permute(n, r) / math.factorial(r)
 
-if __name__ == "__main__":
+if __name__ == "__main__":   
+    parser = argparse.ArgumentParser(description='Encrypt or decrypt a message!')
+    parser.add_argument('-p', '--permute', dest='permute', action='store_true',
+                       default=False, help='Whether to compute a permutation.')
+    parser.add_argument('-c', '--choose', dest='choose', action='store_true',
+                       default=False, help='Whether to compute a combination.')
+    parser.add_argument('-r', '--repetition', dest='repetition', action='store_true',
+                       default=False, help='Whether repetition is allowed\
+                       (Default is false).')
+    parser.add_argument('--values', dest='values', action='store', nargs='+', type=int,
+                       help='The values to compute with the chosen operation.\
+                       (Values should be entered in the order: n r )', 
+                       required=True)
+
+    args = parser.parse_args()
+    
     # initialize the class
     comb = Combinatorics()
     
+    n = args.values[0]
+    r = args.values[1]
+    
+    if args.permute:
+        print comb.permute(n, r, args.repetition)
+    if args.choose:
+        print comb.choose(n, r, args.repetition)
+    
     # test code
-    print comb.permute(100000, 2, repetition=False)
-    print comb.choose(100000, 100000-1, repetition=False)
-    print comb.choose(10000, 32, repetition=True)
+    # print comb.permute(100000, 2, repetition=False)
+    # print comb.choose(100000, 100000-1, repetition=False)
+    # print comb.choose(10000, 32, repetition=True)
     
