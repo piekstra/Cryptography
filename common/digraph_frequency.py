@@ -37,13 +37,15 @@ class DigraphFrequency:
     #
     def getDigraphFrequencies(self):
         return [('TH', 1.52), ('HE', 1.28), ('IN', 0.94), ('ER', 0.94), ('AN', 0.82), ('RE', 0.68), ('ND', 0.63), ('AT', 0.59), ('ON', 0.57)]
-        
-# manual run
-diFreq = DigraphFrequency()
-#testMsg = "STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ"
-testMsg = "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV YQCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ"
-#testMsg = "HZD UGQ OBK GHZ TGY KOB HZP QNS XV"
-testMsg = testMsg.replace(' ', '')
-print testMsg
-print "Ciphertext digraph frequencies:\n%s\n" % diFreq.getFrequencies(testMsg)
-print "Common digraph frequencies:\n%s\n" % diFreq.getDigraphFrequencies()
+ 
+if __name__ == "__main__":    
+    # manual run
+    diFreq = DigraphFrequency()
+    #testMsg = "STB RDX TZQ MFY MJQ GTB WTT RXM FPJ XUJ FWJ MFI PNS LOT MSX FDF UUF WJS YQD MJB FXS YTS YMJ BFX MNS LYT SGJ QYB FDF YYM JYN RJ"
+    #testMsg = "KFHYY GIGMC EJSST EBOEU GRWJT SDVYK ZOZLI ZKFHX KUUIC WXFWJ GAXQP BQAGV GXDVD GUEVG MIGYK QQPIP SCLLF YPMUL KFHXP MHGME VDKAV YQCEG UEALY YYZSZ MPXZO CTXTR IMDID VDGSX OZFFT SMEDV MEIMD VMPKO UJKOD UBOAX BOORS LPZCW IMDVY GJWMI FQ"
+    testMsg = "LTG ZRH JGJ WYE DRK XUC SLK SCG UGZ KWI LXF CSA QUL JRA SWD HZZ HBG NHU MAH RUY PIY LES SSG SLJ RAG DOH NWZ CXK WGZ MIT LJR ABW JSZ SEZ KKD BJO KOZ GQS GJW VOK WVG L"
+    #testMsg = "HZD UGQ OBK GHZ TGY KOB HZP QNS XV"
+    testMsg = testMsg.replace(' ', '')
+    print testMsg
+    print "Ciphertext digraph frequencies:\n%s\n" % diFreq.getFrequencies(testMsg)
+    print "Common digraph frequencies:\n%s\n" % diFreq.getDigraphFrequencies()
