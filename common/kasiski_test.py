@@ -43,7 +43,7 @@ class KasiskiTest:
     def getAllPotentialKeyLens(self, msg, substrs):
         return [self.getPotentialKeyLens(msg, substr) for substr in substrs]
     
-    def getMostLikelyKeyLen(self, msg, substrs):
+    def getMostLikelyKeyLens(self, msg, substrs):
         # get potential key lengths for all substrings
         allKeyLens = self.getAllPotentialKeyLens(msg, substrs)
         
@@ -57,14 +57,15 @@ class KasiskiTest:
                     keys[key] += 1
                 else:
                     keys[key] = 1
-        # return the most likely key length       
-        return sorted(keys.items(), key=operator.itemgetter(1), reverse=True)[0][0]
+        # return the most likely key lengths in order of most likely to least likely      
+        return [keyTuple[0] for keyTuple in sorted(keys.items(), key=operator.itemgetter(1), reverse=True)]
     
     def getDivisors(self, ints):
         # return the common divisors of every int in the tuple of ints
         return [i for i in range(1, reduce(lambda a,b: fractions.gcd(a,b), ints)+1) if reduce(lambda a,b: a and b, [x % i == 0 for x in ints])]
     
 if __name__ == "__main__":  
+    # debugging code
     kt = KasiskiTest()
     msg = "YBR GPT OOY CBC GUG SNR TCW MVF RMU GJC MUI RCC UZV LJX BAJ DNU RTJ LLF KFF YBL JMZ NWG YNY JYB RRV HCG VLL MGH DKB NCN JHF NRW YNY JDV VTL ZGO RPX IAR QBY PNL YYI RLG YTV LYI GUG SEN OMZ NVA YSS IRP DXR SGS CGR UFS BHP GLN VLX BNI CJP BYT JXG BEJ NHF MZN BSR MYE NGS ZVA BBB REC YBR OCW LVR QFL RNL IER RNZ MSE MRA RGR NHT XGQ FRQ MZL OEY NHF QGI HBG CAI YIC YIU RJU OFT PFM CEC FFY LJF LTR LZG ORP XIE GMQ IBX YYN UVL LMV AYM OAQ PJX GUM ZMN ABI CZR LXC BAQ"
     msg = msg.replace(' ' , '')

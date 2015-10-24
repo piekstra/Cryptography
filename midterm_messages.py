@@ -22,17 +22,20 @@ for msgNum, msg in enumerate(messages):
         # (a) Find all repeated strings of lengths 3 or more and apply the Kasiski test.
         kt = KasiskiTest()        
         repeatedSubstrs = kt.getRepeatedSubstrs(msg, 3)     
-        if not repeatedSubstrs:
-            continue
-        print "Repeated substrs of length >= 3:\n%s\n" % repeatedSubstrs
-        
-        print "Potential keys determined by running Kasiski test on each substring:"
-        # print out potential key lengths for every substring
-        for keyLens in kt.getAllPotentialKeyLens(msg, repeatedSubstrs):
-            print keyLens
+        if repeatedSubstrs:
+            print "Repeated substrs of length >= 3:\n%s\n" % repeatedSubstrs
             
-        mostLikelyKey = kt.getMostLikelyKeyLen(msg, repeatedSubstrs)
-        print "\nMost likely key length: %d" % (mostLikelyKey)
+            print "Potential keys determined by running Kasiski test on each substring:"
+            # print out potential key lengths for every substring
+            for keyLens in kt.getAllPotentialKeyLens(msg, repeatedSubstrs):
+                print keyLens
+                
+            mostLikelyKeysKasiski = kt.getMostLikelyKeyLens(msg, repeatedSubstrs)
+            print "\nMost likely key lengths using Kasiski test:\n%s" % (mostLikelyKeysKasiski)
+        else:
+            print "\nKasiski test failed (no repeated substrings with length >= 3)"
+        mostLikelyKeyIC = polyCi.getKeywordLength(len(msg), msgIC)
+        print "\nMost likely key length using IC test: %0.4f" % (mostLikelyKeyIC)
         
     # 2. For the ones which you guess to be monoalphabetic, do the following:
     else:
