@@ -10,6 +10,7 @@ class LetterFrequency:
     
     ## Determines frequencies of letters in the msg
     def getFrequencies(self, msg):
+        msg = msg.replace(' ' , '')
         msgLen = len(msg)
         
         frequencies = {}
