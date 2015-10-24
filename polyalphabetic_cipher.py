@@ -8,6 +8,7 @@ class PolyalphabeticCipher:
         self.engIC = 0.065
         # ic of perfectly random message (all letters equiprobable)
         self.ranIC = 0.038
+        self.vigenereSquare = self.constructVigenereSquare()
     
     ## getLetCounts
     #
@@ -67,9 +68,85 @@ class PolyalphabeticCipher:
     #
     def isPolyalphabetic(self, ic):
         return (abs(ic - self.ranIC) < abs(ic - self.engIC))
+
+    ## getKeywordLength
+    #
+    # IC test (Friedman Test)
+    #
+    # n is the length of the message
+    # ic is the index of coincidence of the message
+    #
+    def getKeywordLength(self, n, ic):
+        return float((0.027*n)/((n-1.0)*ic - 0.038*n + 0.065))
+    
+    ## msgSplit
+    #
+    # Using a known or predicted keyword length, splits the message
+    # into columns that wrap every keywordLen number of columns
+    #
+    # For example, with 
+    #   msg: AGDKLTSET
+    #   keywordLen: 3
+    #
+    # The columns would look as follows:
+    #
+    #   A G D
+    #   K L T
+    #   S E T
+    #
+    # These columns can then be analyzed as if they were encrypted
+    # using a monoalphabetic cipher
+    #
+    def msgSplit(self, msg, keywordLen):    
+        # return the a list of columns
+        # this works by separating the message into tuples of every
+        # keywordLen letters and then transposing the result
+        return map(list, zip(*(zip(*[iter(list(msg))]*keywordLen))))
+    
+    ## constructVigenereSquare
+    #
+    # The Vigenere Square is a mapping of the simple shifts performed
+    # when encrypting a message using a Vigenere cipher keyword
+    # 
+    # In other words, keyword 'a' shifts letters by 0
+    # so vigengereSquare['a']['c'] = 'C'
+    def constructVigenereSquare(self): 
+        alphabet = list(string.ascii_uppercase)
+        lowerbet = list(string.ascii_lowercase)
         
+        vigenereSquare = {}
+        for shift, rowLet in enumerate(lowerbet):
+            vigenereSquare[rowLet] = {}
+            for idx, colLet in enumerate(lowerbet):
+                vigenereSquare[rowLet][colLet] = alphabet[(idx+shift)%len(alphabet)]            
+        return vigenereSquare
+    
+    ## vigenereSquareDecrypt
+    #
+    # c is the cipher letter (i.e. 'N')
+    # p is the plaintext letter that the cipher letter
+    #   is expected to correspond to (i.e. 'e')
+    #
+    def vigenereSquareDecrypt(self, c, p):    
+        for key, value in self.vigenereSquare[p].items():
+            if value == c:
+                return key
+        return None
+        
+    ## vigenereSquareEncrypt
+    #
+    # k is the keyword letter (i.e. 'j')
+    # p is the plaintext letter to encrypt (shift)
+    #
+    def vigenereSquareEncrypt(self, k, p):    
+        return self.vigenereSquare[k][p]
+    
 if __name__ == "__main__":  
-    ""
+    polyCi = PolyalphabeticCipher()
+    #polyCi.msgSplit("ABCDEFGHI", 3)
+    #print polyCi.vigenereSquareDecrypt('N', 'e')
+    #print polyCi.vigenereSquareEncrypt('j', 'e')
+    #print polyCi.getKeywordLength(460, 0.04713)
     # parser = argparse.ArgumentParser(description='Encrypt or decrypt a message!')
     # parser.add_argument('-d', '--decrypt', dest='decrypt', action='store_true',
                        # default=False, help='Whether to decrypt the message. \
@@ -92,7 +169,6 @@ if __name__ == "__main__":
     #msg = "MFE RLH WSR LHW BZN BNW SRX DEC INQ RNW JHL RBW BNL DER HQN DEQ BUJ WSH UZS RNN LDE RDA HJH LQC RWS HUM DTR EHU ICH NWN CDU JRE WSH ULD UDM DCP BWN AER RBW ZHU QRM CHP RIH UPX SRE RHE ZSB LRI RNI BIB WBU HQH WSW FQ"
     # msg = "LTG ZRH JGJ WYE DRK XUC SLK SCG UGZ KWI LXF CSA QUL JRA SWD HZZ HBG NHU MAH RUY PIY LES SSG SLJ RAG DOH NWZ CXK WGZ MIT LJR ABW JSZ SEZ KKD BJO KOZ GQS GJW VOK WVG L"
 
-    # polyCi = PolyalphabeticCipher()
     
     # msgIC = polyCi.calcIC(msg)
     # isPoly = polyCi.isPolyalphabetic(msgIC)
