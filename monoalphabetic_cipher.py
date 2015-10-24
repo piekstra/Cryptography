@@ -78,7 +78,7 @@ class MonoalphabeticCipher:
     # @param mfc - The two most frequent ciphertext letters
     # @param mfp - The two most frequent plaintext letters
     #
-    def decrypt(self, msg, mfc, mfp, verbose=False, showDigraphFrequencies=False):
+    def decrypt(self, msg, mfc=None, mfp=None, verbose=False, showDigraphFrequencies=False):
         # remove spaces from the message
         msg = ''.join(msg.split())        
         if verbose: print "Attempting to decipher:\n", msg, "\n"
@@ -88,13 +88,10 @@ class MonoalphabeticCipher:
         (freqDict, freqTuples) = letFreq.getFrequencies(msg)
         (stdDict, stdTuples) = letFreq.getStandardFrequencies()
         
-        # if the mfc is None then use the default top two most frequent
-        # letters in the ciphertext message
-        if mfc is None:
-            mfc = (freqTuples[0][0], freqTuples[1][0])
-        else:
-            mfc = tuple(mfc)
-        mfp = tuple(mfp)
+        # if the mfc or mfp are None, use the top two most frequent letters
+        # in the ciphertext and english language respectively as defaults
+        mfc = tuple(mfc) if mfc else (freqTuples[0][0], freqTuples[1][0])        
+        mfp = tuple(mfp) if mfp else (stdTuples[0][0], stdTuples[1][0])      
         
         if verbose: 
             print "Ciphertext Letter Frequencies:\n%s\n" % freqTuples
@@ -115,7 +112,7 @@ class MonoalphabeticCipher:
             print "Assuming that", mfc[1], "is equivalent to", mfp[1], "\n"
         
         # get the affine key using the mfc letters and mfp letters
-        key = self.getAffineKey(*tuple(map(self.letToInt, mfc+mfp)))
+        key = self.getAffineKey(*tuple(map(self.letToInt, mfp+mfc)))
         
         if key is None:
             print "Unable to decipher using '%s'->'%s' and '%s'->'%s'\n" % (mfc[0], mfp[0], mfc[1], mfp[1])
