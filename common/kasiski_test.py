@@ -25,10 +25,21 @@ class KasiskiTest:
     
     def getRepeatedSubstrs(self, msg, minLen):    
         # This is horribly NOT optimal, but it gets the job done 
-        # (can have fun with it later - suffix tree!)
-        repeatedSubstrsLists = [self.findAllRepeatedSubstrs(msg, i) for i in range(minLen, len(msg)-1)]
-        # return repeated substrs of length >= minLen
-        return list(itertools.chain.from_iterable(repeatedSubstrsLists))
+        # (can have fun with it later - suffix tree!)'
+        
+        repeatedSubstrs = []
+        
+        # Go through the list backwards from the longest possible substr and
+        # add them to repeatedSubstrs if it is not already there in a longer
+        # form (i.e. do not add THYQ if THYQZ is already there)
+        for i in range(len(msg)-1, minLen-1, -1):
+            substrs = self.findAllRepeatedSubstrs(msg, i)
+            for substr in substrs:
+                #if any(substr in item for item in repeatedSubstrs):
+                if any(item.startswith(substr) for item in repeatedSubstrs):
+                    continue
+                repeatedSubstrs.append(substr)   
+        return repeatedSubstrs
     
     def getDistancesBetweenOccurrences(self, msg, substr):
         # get the indexes of each occurrence of substr in msg
