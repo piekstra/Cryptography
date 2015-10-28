@@ -1,4 +1,4 @@
-import string
+import string, itertools
 from common.letter_frequency import LetterFrequency
 
 class PolyalphabeticCipher:
@@ -46,9 +46,8 @@ class PolyalphabeticCipher:
         # remove spaces from the message
         msg = ''.join(msg.split())     
         
-        # get the squared length of the message as a float
-        msgLenSqr = float(len(msg)**2)
-        
+        # get the length*(length-1) of the message as a float
+        n = float(len(msg)*(len(msg)-1))
         # get the letter counts
         letCounts = self.getLetCounts(msg)
         
@@ -56,7 +55,7 @@ class PolyalphabeticCipher:
         sum = 0
         for count in letCounts.values():
             if count != 0:
-                sum += (count**2)/msgLenSqr
+                sum += (count*(count-1.0))/n
                 
         # return the calculated IC
         return sum
@@ -89,19 +88,24 @@ class PolyalphabeticCipher:
     #   keywordLen: 3
     #
     # The columns would look as follows:
-    #
-    #   A G D
-    #   K L T
-    #   S E T
+    #   split       transposed
+    #   A G D       A K S       <- Col1
+    #   K L T  =>   G L E       <- Col2
+    #   S E T       D T T       <- Col3
     #
     # These columns can then be analyzed as if they were encrypted
     # using a monoalphabetic cipher
     #
-    def msgSplit(self, msg, keywordLen):    
-        # return the a list of columns
-        # this works by separating the message into tuples of every
-        # keywordLen letters and then transposing the result
-        return map(list, zip(*(zip(*[iter(list(msg))]*keywordLen))))
+    def msgSplit(self, msg, keywordLen):  
+        # separate the message into tuples of every keywordLen letters 
+        split = itertools.izip_longest(*[iter(list(msg))]*keywordLen)
+        # transpose the result into columns
+        transposed = map(list, itertools.izip_longest(*split))
+        
+        # if the message was uneven, the above method of splitting and 
+        # transposing will add None values to even out the columns
+        # the below filter will remove those None values
+        return [filter(lambda a: a is not None, column) for column in transposed]
     
     ## constructVigenereSquare
     #
@@ -127,7 +131,7 @@ class PolyalphabeticCipher:
     # p is the plaintext letter that the cipher letter
     #   is expected to correspond to (i.e. 'e')
     #
-    def vigenereSquareDecrypt(self, c, p):    
+    def vigenereSquareDecrypt(self, c, p='e'):    
         for key, value in self.vigenereSquare[p].items():
             if value == c:
                 return key
@@ -140,11 +144,29 @@ class PolyalphabeticCipher:
     #
     def vigenereSquareEncrypt(self, k, p):    
         return self.vigenereSquare[k][p]
-    
+        
+    ## vigenereDecrypt
+    #
+    # Decrypts a message using the key and the Vigenere Square
+    #
+    # msg is the message to decrypt
+    # key is the key used to encrypt the message
+    #
+    def vigenereDecrypt(self, msg, key):    
+        keyLen = len(key)
+        decryptedMsg = ""
+        for i in range(0, len(msg), keyLen):
+            # slice out a chunk of the message (len <= size of key)
+            chunk = msg[i:i+keyLen]
+            # decrypt the chunk using the key
+            for chunkIdx in range(0, len(chunk)):
+                decryptedMsg += self.vigenereSquareDecrypt(chunk[chunkIdx], key[chunkIdx])
+        return decryptedMsg
+        
 if __name__ == "__main__":  
     polyCi = PolyalphabeticCipher()
     #polyCi.msgSplit("ABCDEFGHI", 3)
-    #print polyCi.vigenereSquareDecrypt('N', 'e')
+    print polyCi.vigenereSquareDecrypt('N')
     #print polyCi.vigenereSquareEncrypt('j', 'e')
     #print polyCi.getKeywordLength(460, 0.04713)
     # parser = argparse.ArgumentParser(description='Encrypt or decrypt a message!')
