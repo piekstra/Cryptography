@@ -91,6 +91,10 @@ class DigraphFrequency:
         # return a list of digraphs
         return [msg[i:i+2] for i in range(0, len(msg), 2)]
     
+    def getUniqueDigraphs(self, msg):
+        # return a list of digraphs
+        return list(set(self.getDigraphs(msg)))
+    
     def letToInt(self, let, zeroSystem=False):
         return (ord(let.lower()) - 96) - (1 if zeroSystem else 0)
     

@@ -21,14 +21,15 @@ class HillSystem:
         numToFill = (keyDim - (len(msg) % keyDim)) % keyDim
         msg += numToFill * self.padChar
         encryptedMsg = ""
-        for block in [msg[i:i+keyDim] for i in range(0,len(msg),keyDim)]:
-            encryptedMatrix = self.matrixOps.matrixMult(key, [[ord(char)-96] for char in block])
+        for block in [msg[i:i+keyDim] for i in range(0,len(msg),keyDim)]:           
+            encryptedMatrix = self.matrixOps.matrixMult(key, [[self.letToInt(char, zeroSystem)] for char in block])
             for encryptedRow in encryptedMatrix:
-                cipherInt = (encryptedRow[0] - (1 if zeroSystem else 0)) % 26
+                cipherInt = encryptedRow[0] % 26
+                
                 # cover the 'z' case
-                if cipherInt == 0:
+                if cipherInt == 0 and not zeroSystem:
                     cipherInt = 26
-                encryptedMsg += chr(cipherInt+96)
+                encryptedMsg += self.intToLet(cipherInt, zeroSystem)
         return encryptedMsg if decrypt else encryptedMsg.upper()
     
     def decrypt(self, msg, key, invertKey=False, zeroSystem=False):
@@ -82,11 +83,10 @@ class HillSystem:
                 freqDict[pair] += 1
             else:
                 freqDict[pair] = 1
-        
-        return map(lambda x: x[0], sorted(freqDict.items(), key=operator.itemgetter(1), reverse=True))
+        return sorted(freqDict.items(), key=operator.itemgetter(1), reverse=True)
     
     def letToInt(self, let, zeroSystem=False):
-        return ord(let.lower()) - 96
+        return ord(let.lower()) - 96 - (1 if zeroSystem else 0)
         
     def intToLet(self, int, zeroSystem=False):
         return chr(int+96 + (1 if zeroSystem else 0))
@@ -120,37 +120,58 @@ class HillSystem:
         # c d        
         abConsts = mfdConsts[0]
         abPossibleValues = [self.solveLinEquPair(abConsts, folDiConsts) for folDiConsts in followingDigraphConstants]
-        twoMostLikelyABValues = self.mostFreqIntPairs(abPossibleValues)[:2]
-        # of the two most likely values for both a and b, go through every digraph in the message
-        # and determine the int value of a1x+b1y, and a2x + b2y where x and y are the two letters
-        # in the digraph and a1,b1 and a2,b2 are the abValues
-        # convert the resulting int values to letters, and see which key pair produced the more
-        # frequent letter
-        # keep a running tally of the more frequent letters for each pair to see which one is
-        # more likely to be the actual key
-        key1 = twoMostLikelyABValues[0]
-        key2 = twoMostLikelyABValues[1]
-        msgDigraphs = diFreq.getDigraphs(msg)
-        key1Lets = [self.diAndKeyToLet(digraph, key1, zeroSystem) for digraph in msgDigraphs]
-        key2Lets = [self.diAndKeyToLet(digraph, key2, zeroSystem) for digraph in msgDigraphs]
-        
-        englishLetterFrequenciesDict = letFreq.getStandardFrequencies()[0]
-        key1MoreFreqCounter = 0
-        key2MoreFreqCounter = 0
-        for i in range(0, len(key1Lets)):
-            if englishLetterFrequenciesDict[key1Lets[i]] > englishLetterFrequenciesDict[key2Lets[i]]:
-                key1MoreFreqCounter += 1
-            else:
-                key2MoreFreqCounter += 1
-        abKey = key1 if key1MoreFreqCounter > key2MoreFreqCounter else key2
-        print "Key %s is the more likely of the keys %s and %s" % (abKey, key1, key2)
+        mostLikelyABValues = self.mostFreqIntPairs(abPossibleValues)
+        bestABValues = []
+        for abValue, count in mostLikelyABValues:
+            # if the abValue works for all equations, it is very likely
+            # that it is the correct values for a and b
+            if count == len(followingDigraphConstants):
+                bestABValues.append(abValue)
+        # if there are still no abValues 
+        #   (i.e. no a, b pair works for all of the equations
+        #   created by assuming that the digraphs following the mfd correspond to 'e*')
+        # then just pick the top 2        
+        if not bestABValues:
+            bestABValues = mostLikelyABValues[:2]
+            
+        # if there are two a,b pairs to try out, do the following
+        if len(bestABValues) > 1:
+            # of the two most likely values for both a and b, go through every digraph in the message
+            # and determine the int value of a1x+b1y, and a2x + b2y where x and y are the two letters
+            # in the digraph and a1,b1 and a2,b2 are the abValues
+            # convert the resulting int values to letters, and see which key pair produced the more
+            # frequent letter
+            # keep a running tally of the more frequent letters for each pair to see which one is
+            # more likely to be the actual key
+            key1 = twoMostLikelyABValues[0]
+            key2 = twoMostLikelyABValues[1]
+            msgDigraphs = diFreq.getUniqueDigraphs(msg)
+            key1Lets = [self.diAndKeyToLet(digraph, key1, zeroSystem) for digraph in msgDigraphs]
+            key2Lets = [self.diAndKeyToLet(digraph, key2, zeroSystem) for digraph in msgDigraphs]
+            
+            englishLetterFrequenciesDict = letFreq.getStandardFrequencies()[0]
+            key1MoreFreqCounter = 0
+            key2MoreFreqCounter = 0
+            for i in range(0, len(key1Lets)):
+                if englishLetterFrequenciesDict[key1Lets[i]] > englishLetterFrequenciesDict[key2Lets[i]]:
+                    key1MoreFreqCounter += 1
+                else:
+                    key2MoreFreqCounter += 1
+            # try the more likely key first!
+            abKeys = [key1, key2] if key1MoreFreqCounter > key2MoreFreqCounter else [key2, key1]
+            print "Key %s is the more likely of the keys %s and %s" % (abKeys[0], key1, key2)
+        # there is only one AB value, so it must be the correct key pair for a,b!!!
+        else:
+            abKeys = bestABValues
+            
         # find possible values for c and d that solve the equation
         cdConsts = mfdConsts[1]
         cdKeys = self.solveLinEqu(cdConsts)
-        for cdKey in cdKeys:
-            key = [list(abKey), list(cdKey)]
-            print "Trying key: %s" % key
-            print self.decrypt(msg, key, False, zeroSystem)
+        for abKey in abKeys:
+            for cdKey in cdKeys:
+                key = [list(abKey), list(cdKey)]
+                print "Trying decryption key: %s (encryption key %s)" % (key, self.matrixOps.invertMatrix(key))
+                print self.decrypt(msg, key, False, zeroSystem)
         # brute force the potential keys using the values of [[a, b], [c,d]]
         
         
