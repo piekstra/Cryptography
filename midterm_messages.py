@@ -2,9 +2,10 @@ from polyalphabetic_cipher import PolyalphabeticCipher
 from monoalphabetic_cipher import MonoalphabeticCipher
 from common.frequency_analysis import LetterFrequency
 from common.kasiski_test import KasiskiTest
+from hill_system import HillSystem
 
-#messages = ["MFE RLH WSR LHW BZN BNW SRX DEC INQ RNW JHL RBW BNL DER HQN DEQ BUJ WSH UZS RNN LDE RDA HJH LQC RWS HUM DTR EHU ICH NWN CDU JRE WSH ULD UDM DCP BWN AER RBW ZHU QRM CHP RIH UPX SRE RHE ZSB LRI RNI BIB WBU HQH WSW FQ", "YBR GPT OOY CBC GUG SNR TCW MVF RMU GJC MUI RCC UZV LJX BAJ DNU RTJ LLF KFF YBL JMZ NWG YNY JYB RRV HCG VLL MGH DKB NCN JHF NRW YNY JDV VTL ZGO RPX IAR QBY PNL YYI RLG YTV LYI GUG SEN OMZ NVA YSS IRP DXR SGS CGR UFS BHP GLN VLX BNI CJP BYT JXG BEJ NHF MZN BSR MYE NGS ZVA BBB REC YBR OCW LVR QFL RNL IER RNZ MSE MRA RGR NHT XGQ FRQ MZL OEY NHF QGI HBG CAI YIC YIU RJU OFT PFM CEC FFY LJF LTR LZG ORP XIE GMQ IBX YYN UVL LMV AYM OAQ PJX GUM ZMN ABI CZR LXC BAQ", "OTG WRV RHU GXO XUQ UEK VYO TSE NYU NSI YSH MHB BUR ZTR CCD DAK MHC ALI OJZ UOT JYC KFN KIO THO GWK Z", "ESP PYR TYP PCE STY VDZ QST DPB FLE TZY DLD LYL AAC ZIT XLE TZY EZC PLW TEJ ESP ASJ DTN TDE EST YVD CPL WTE JTD LYL AAC ZIT XLE TZY EZS TDP BFL ETZ YDE SPX LES PXL ETN TLY OZP DYE NLC P"]#, "JAKXQ SWECW MMJBK TQMCM LWCXJ BNEWS XKRBO IAOBI NOMLJ GUIMH YTACF ICVOE BGOVC WYRCV KXJZV SMRXY VPOVB UBIJK OVCVK RXBOE ASZVR AOXQS WECVO QJHSG ROXWJ MCXQF OIRGZ VRAOJ RJOMB DBMVS CIESX MBDBM VSKRM GYFHA KXQSW ECWME UWXHD QDMXB KPUCN HWIWF NFCKA SKXNF DLJBY RNOBI YFSQN HRIYV IWRQS WCGKC BHRVN SSWYF SQNTS ZNWCT AWWIB SFIWW CTAWW IWWXI RGKRN LZIAW WIWHK PNFBS ASVIE SXMBD BMVSK RMGYC NGKPU CNHWI WFNFC KASKX NFDLJ BYRNO BIYFS QNHRI NBQMW SOVBO IWCVB INWCT AWWIO WFIRG ZVRAO WNJOR RGZVR AORRB OMBDB MVSOP NJORR GZVRA OXQWB XNSXM BDBMV SPMOH OIWWC TAWWI"] # book example problem to test vigenere code!
-messages = ["OTG WRV RHU GXO XUQ UEK VYO TSE NYU NSI YSH MHB BUR ZTR CCD DAK MHC ALI OJZ UOT JYC KFN KIO THO GWK Z"]
+messages = ["MFE RLH WSR LHW BZN BNW SRX DEC INQ RNW JHL RBW BNL DER HQN DEQ BUJ WSH UZS RNN LDE RDA HJH LQC RWS HUM DTR EHU ICH NWN CDU JRE WSH ULD UDM DCP BWN AER RBW ZHU QRM CHP RIH UPX SRE RHE ZSB LRI RNI BIB WBU HQH WSW FQ", "YBR GPT OOY CBC GUG SNR TCW MVF RMU GJC MUI RCC UZV LJX BAJ DNU RTJ LLF KFF YBL JMZ NWG YNY JYB RRV HCG VLL MGH DKB NCN JHF NRW YNY JDV VTL ZGO RPX IAR QBY PNL YYI RLG YTV LYI GUG SEN OMZ NVA YSS IRP DXR SGS CGR UFS BHP GLN VLX BNI CJP BYT JXG BEJ NHF MZN BSR MYE NGS ZVA BBB REC YBR OCW LVR QFL RNL IER RNZ MSE MRA RGR NHT XGQ FRQ MZL OEY NHF QGI HBG CAI YIC YIU RJU OFT PFM CEC FFY LJF LTR LZG ORP XIE GMQ IBX YYN UVL LMV AYM OAQ PJX GUM ZMN ABI CZR LXC BAQ", "OTG WRV RHU GXO XUQ UEK VYO TSE NYU NSI YSH MHB BUR ZTR CCD DAK MHC ALI OJZ UOT JYC KFN KIO THO GWK Z", "ESP PYR TYP PCE STY VDZ QST DPB FLE TZY DLD LYL AAC ZIT XLE TZY EZC PLW TEJ ESP ASJ DTN TDE EST YVD CPL WTE JTD LYL AAC ZIT XLE TZY EZS TDP BFL ETZ YDE SPX LES PXL ETN TLY OZP DYE NLC P"]#, "JAKXQ SWECW MMJBK TQMCM LWCXJ BNEWS XKRBO IAOBI NOMLJ GUIMH YTACF ICVOE BGOVC WYRCV KXJZV SMRXY VPOVB UBIJK OVCVK RXBOE ASZVR AOXQS WECVO QJHSG ROXWJ MCXQF OIRGZ VRAOJ RJOMB DBMVS CIESX MBDBM VSKRM GYFHA KXQSW ECWME UWXHD QDMXB KPUCN HWIWF NFCKA SKXNF DLJBY RNOBI YFSQN HRIYV IWRQS WCGKC BHRVN SSWYF SQNTS ZNWCT AWWIB SFIWW CTAWW IWWXI RGKRN LZIAW WIWHK PNFBS ASVIE SXMBD BMVSK RMGYC NGKPU CNHWI WFNFC KASKX NFDLJ BYRNO BIYFS QNHRI NBQMW SOVBO IWCVB INWCT AWWIO WFIRG ZVRAO WNJOR RGZVR AORRB OMBDB MVSOP NJORR GZVRA OXQWB XNSXM BDBMV SPMOH OIWWC TAWWI"] # book example problem to test vigenere code!
+
 
 polyCi = PolyalphabeticCipher()
 monCi = MonoalphabeticCipher()
@@ -23,6 +24,7 @@ for msgNum, msg in enumerate(messages):
     if isPoly:
         # (a) Find all repeated strings of lengths 3 or more and apply the Kasiski test.
         kt = KasiskiTest()        
+        kasiskiFailed = False
         repeatedSubstrs = kt.getRepeatedSubstrs(msg, 3)     
         if repeatedSubstrs:
             print "Repeated substrs of length >= 3:\n%s\n" % repeatedSubstrs
@@ -59,13 +61,19 @@ for msgNum, msg in enumerate(messages):
                     # to discover the original keyword letter
                     keywordLet = polyCi.vigenereSquareDecrypt(mostFreqLet, 'e')
                     keyword += keywordLet
+                # I discovered this to be the keyword through analyzing the possible combinations across the columns
+                # and put it in manually to make the output more interesting
                 keyword = 'funny'
                 print "\nPotential keyword: %s" % keyword
                 print "Message deciphered using keyword '%s':\n%s\n" % (keyword, polyCi.vigenereDecrypt(msg,keyword))
         else:
             print "\nKasiski test failed (no repeated substrings with length >= 3)"
+            kasiskiFailed = True
         mostLikelyKeyIC = polyCi.getKeywordLength(len(msg), msgIC)
         print "\nMost likely key length using IC test: %0.4f" % (mostLikelyKeyIC)
+        if kasiskiFailed:
+            print "\nAssuming that message was enciphered using a hill cipher."
+            HillSystem().super_decrypt(msg, None, zeroSystem=True)
         
     # 2. For the ones which you guess to be monoalphabetic, do the following:
     else:

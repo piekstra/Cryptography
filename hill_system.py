@@ -48,14 +48,7 @@ class HillSystem:
     def solveLinEquPair(self, equConstants1, equConstants2):
         (a1, b1, c1) = equConstants1
         (a2, b2, c2) = equConstants2
-        
-        xySols = []
-        for x in range(0, 26):
-            for y in range(0, 26):
-                if (a1*x + b1*y) % 26 == c1 and (a2*x + b2*y) % 26 == c2:
-                    xySols.append((x, y))
-                    
-        return xySols
+        return filter(lambda tup: (a1*tup[0] + b1*tup[1]) % 26 == c1 and (a2*tup[0] + b2*tup[1]) % 26 == c2, [(x,y) for x in range (26) for y in range(26)])               
         
     # The parameters are tuples of the constants
     # for each equation in the form
@@ -93,20 +86,29 @@ class HillSystem:
     
     ## psuedo algorithm/code for discovering the potential key matrices
     # find the most frequent digraph
-    #       allow command line option to specify the digraph that is 'most frequent'
-    # assume the digraph maps to 'th'
+    #   assume the digraph maps to 'th'
     #   create a set of constants for the linear equations using the numeric values of
     #       each letter
     #   i.e. 'OT' mapping to 'th' would produce (14, 19, 19) and (14, 19, 7) using a zero_system
     # get the list of digraphs that follow the most frequent digraph
     #   create a list of constants tuples assuming that these digraphs map to 'e*'
     #   i.e. 'GW' mapping to 'e*' would produce (6, 22, 4) using the zero_system
-    # ...
+    # solve for x,y in the pairs of linear equations for ax + by = c where c is the integer
+    # representation of 't' or 'e' depending on the equation
+    #   these are the potential solutions mapping the first letter of the digraph
+    #   to 't' and assuming that 'e' follows the letter after 't'
+    # from all of the possible keys, if the same key shows up as a solution to each
+    # equation, or it simply shows up more frequently than other keys for (a, b) then
+    #   use that key for a and b
+    # get a list of possible keys for cx + dy = e where e is the integer representation of 'h'
+    # run through the 1 or 2 best keys for a, b and all of the keys for c, d and decipher
+    # the ciphertext using them.
+    # Look at the output and try to find the english one
     def super_decrypt(self, msg, digraphOverride=None, zeroSystem=False):
         diFreq = DigraphFrequency()
         letFreq = LetterFrequency()
         if digraphOverride is None:
-            mfd = diFreq.getFrequencies(msg)[1][0][0]
+            (mfd, mfdf) = diFreq.getFrequencies(msg)[1][0]
         else:        
             # most frequent digraph
             mfd = digraphOverride
@@ -167,11 +169,28 @@ class HillSystem:
         # find possible values for c and d that solve the equation
         cdConsts = mfdConsts[1]
         cdKeys = self.solveLinEqu(cdConsts)
+        
+        ## print out a description of the progress thus far
+        print "\nThe most frequent digraph (MFD) in the message was:\n\t%s' with frequency %0.2f%%" % (mfd, mfdf)
+        print "\nMapping '%s' to 'th' resulted in the following equations:\n\t%da + %db = %d\n\t%dc + %dd = %d" % (mfd, abConsts[0], abConsts[1], abConsts[2], cdConsts[0], cdConsts[1], cdConsts[2])
+        print "\nLooking at digraphs following '%s' resulted in the following digraphs:\n\t%s" % (mfd, followingDigraphs)
+        print "\nMapping the above digraphs to 'e*' resulted in the following equations:"
+        for fdc in followingDigraphConstants:
+            print "\t%da + %db = %d" % (fdc[0], fdc[1], fdc[2])        
+        print "\nSolving for 'a' and 'b' in these equations resulted in the following most\nlikely key(s):"
+        for abKey in abKeys:
+            print "\ta = %d, b = %d" % (abKey[0], abKey[1])
+        print "\nSolving for 'c' and 'd' in the original set of equations resulted in the\nfollowing most likely key(s):"
+        for cdKey in cdKeys:
+            print "\tc = %d, d = %d" % (cdKey[0], cdKey[1])        
+        print "\nThese keys as matrices in the form [[a, b], [c, d]] will now be brute forced so \nthat the user can attempt to spot the correct deciphering of the ciphertext.\n\n"
+            
         for abKey in abKeys:
             for cdKey in cdKeys:
                 key = [list(abKey), list(cdKey)]
-                print "Trying decryption key: %s (encryption key %s)" % (key, self.matrixOps.invertMatrix(key))
+                print "Trying decryption key: %s, encryption key %s" % (key, self.matrixOps.invertMatrix(key))
                 print self.decrypt(msg, key, False, zeroSystem)
+                #print "DKEY: %s, EKEYy %s  -> %s" % (key, self.matrixOps.invertMatrix(key),self.decrypt(msg, key, False, zeroSystem))
         # brute force the potential keys using the values of [[a, b], [c,d]]
         
         
