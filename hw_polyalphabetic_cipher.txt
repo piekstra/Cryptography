@@ -1,2 +1,256 @@
 Problem 1b:
-8776532572586134103516462100355595701261565798771422534045449034500147529188967680305931631697805500747386547663161228494506593562289744811723106157625758888047438358897749415680306468127899974563
+C:\Users\Meta\Documents\GitHub\Cryptography>python let_to_num.py -e --msg "mygrandmotherstartedwalkingfivemilesadaywhenshewassixtyshesninetyseventodayandwedontknowwheresheis"
+8762292537314387750716592100705795384761803301771431294082447987930146003361556280301206744297801500745086386228051274069322850762287944203138020457625522618090884117547706028080059721945216467374
+
+Problem 2a:
+C:\Users\Meta\Documents\GitHub\Cryptography>python let_to_num.py --msg "5037870641199144125308389625455549242039153200647301104485724993871598744596345544812994847295143758249467720963469305915408137172498978"
+iamnotavegetarianbecauseiloveanimalsiamavegetarianbecauseihateplants
+
+Problem 5a:
+"though the cold war has passed decoded soviet cables have intensified the long running debate on whether the soviet union employed american citizens as spies"
+ __________________________________
+| Keyword | Plaintext | Ciphertext |
+|    v    |     t     |      O     |
+|    e    |     h     |      L     |
+|    n    |     o     |      B     |
+|    o    |     u     |      I     |
+|    m    |     g     |      S     |
+|    v    |     h     |      C     |
+|    e    |     t     |      X     |
+|    n    |     h     |      U     |
+|    o    |     e     |      S     |
+|    m    |     c     |      O     |
+|    v    |     o     |      J     |
+|    e    |     l     |      P     |
+|    n    |     d     |      Q     |
+|    o    |     w     |      K     |
+|    m    |     a     |      M     |
+|    v    |     r     |      M     |
+|    e    |     h     |      L     |
+|    n    |     a     |      N     |
+|    o    |     s     |      G     |
+|    m    |     p     |      B     |
+|    v    |     a     |      V     |
+|    e    |     s     |      W     |
+|    n    |     s     |      F     |
+|    o    |     e     |      S     |
+|    m    |     d     |      P     |
+|    v    |     d     |      Y     |
+|    e    |     e     |      I     |
+|    n    |     c     |      P     |
+|    o    |     o     |      C     |
+|    m    |     d     |      P     |
+|    v    |     e     |      Z     |
+|    e    |     d     |      H     |
+|    n    |     s     |      F     |
+|    o    |     o     |      C     |
+|    m    |     v     |      H     |
+|    v    |     i     |      D     |
+|    e    |     e     |      I     |
+|    n    |     t     |      G     |
+|    o    |     c     |      Q     |
+|    m    |     a     |      M     |
+|    v    |     b     |      W     |
+|    e    |     l     |      P     |
+|    n    |     e     |      R     |
+|    o    |     s     |      G     |
+|    m    |     h     |      T     |
+|    v    |     a     |      V     |
+|    e    |     v     |      Z     |
+|    n    |     e     |      R     |
+|    o    |     i     |      W     |
+|    m    |     n     |      Z     |
+|    v    |     t     |      O     |
+|    e    |     e     |      I     |
+|    n    |     n     |      A     |
+|    o    |     s     |      G     |
+|    m    |     i     |      U     |
+|    v    |     f     |      A     |
+|    e    |     i     |      M     |
+|    n    |     e     |      R     |
+|    o    |     d     |      R     |
+|    m    |     t     |      F     |
+|    v    |     h     |      C     |
+|    e    |     e     |      I     |
+|    n    |     l     |      Y     |
+|    o    |     o     |      C     |
+|    m    |     n     |      Z     |
+|    v    |     g     |      B     |
+|    e    |     r     |      V     |
+|    n    |     u     |      H     |
+|    o    |     n     |      B     |
+|    m    |     n     |      Z     |
+|    v    |     i     |      D     |
+|    e    |     n     |      R     |
+|    n    |     g     |      T     |
+|    o    |     d     |      R     |
+|    m    |     e     |      Q     |
+|    v    |     b     |      W     |
+|    e    |     a     |      E     |
+|    n    |     t     |      G     |
+|    o    |     e     |      S     |
+|    m    |     o     |      A     |
+|    v    |     n     |      I     |
+|    e    |     w     |      A     |
+|    n    |     h     |      U     |
+|    o    |     e     |      S     |
+|    m    |     t     |      F     |
+|    v    |     h     |      C     |
+|    e    |     e     |      I     |
+|    n    |     r     |      E     |
+|    o    |     t     |      H     |
+|    m    |     h     |      T     |
+|    v    |     e     |      Z     |
+|    e    |     s     |      W     |
+|    n    |     o     |      B     |
+|    o    |     v     |      J     |
+|    m    |     i     |      U     |
+|    v    |     e     |      Z     |
+|    e    |     t     |      X     |
+|    n    |     u     |      H     |
+|    o    |     n     |      B     |
+|    m    |     i     |      U     |
+|    v    |     o     |      J     |
+|    e    |     n     |      R     |
+|    n    |     e     |      R     |
+|    o    |     m     |      A     |
+|    m    |     p     |      B     |
+|    v    |     l     |      G     |
+|    e    |     o     |      S     |
+|    n    |     y     |      L     |
+|    o    |     e     |      S     |
+|    m    |     d     |      P     |
+|    v    |     a     |      V     |
+|    e    |     m     |      Q     |
+|    n    |     e     |      R     |
+|    o    |     r     |      F     |
+|    m    |     i     |      U     |
+|    v    |     c     |      X     |
+|    e    |     a     |      E     |
+|    n    |     n     |      A     |
+|    o    |     c     |      Q     |
+|    m    |     i     |      U     |
+|    v    |     t     |      O     |
+|    e    |     i     |      M     |
+|    n    |     z     |      M     |
+|    o    |     e     |      S     |
+|    m    |     n     |      Z     |
+|    v    |     s     |      N     |
+|    e    |     a     |      E     |
+|    n    |     s     |      F     |
+|    o    |     s     |      G     |
+|    m    |     p     |      B     |
+|    v    |     i     |      D     |
+|    e    |     e     |      I     |
+|    n    |     s     |      F     |
+|__________________________________|
+
+Encrypted message:
+OLBISCXUSOJPQKMMLNGBVWFSPYIPCPZHFCHDIGQMWPRGTVZRWZOIAGUAMRRFCIYCZBVHBZDRTRQWEGSAIAUSFCIEHTZWBJUZXHBUJRRABGSLSPVQRFUXEAQUOMMSZNEFGBDIF
+
+Problem 6a:
+"CPJGO EFLGJ TRCMB XXMXH VWTKZ PFMLW WVNZN LZUFL SGKTS QQRPC XMKFH AGVLX JOQTT KJL"
+ __________________________________
+| Keyword | Ciphertext | Plaintext |
+|    g    |     C     |      w     |
+|    i    |     P     |      h     |
+|    f    |     J     |      e     |
+|    t    |     G     |      n     |
+|    g    |     O     |      i     |
+|    i    |     E     |      w     |
+|    f    |     F     |      a     |
+|    t    |     L     |      s     |
+|    g    |     G     |      a     |
+|    i    |     J     |      b     |
+|    f    |     T     |      o     |
+|    t    |     R     |      y     |
+|    g    |     C     |      w     |
+|    i    |     M     |      e     |
+|    f    |     B     |      w     |
+|    t    |     X     |      e     |
+|    g    |     X     |      r     |
+|    i    |     M     |      e     |
+|    f    |     X     |      s     |
+|    t    |     H     |      o     |
+|    g    |     V     |      p     |
+|    i    |     W     |      o     |
+|    f    |     T     |      o     |
+|    t    |     K     |      r     |
+|    g    |     Z     |      t     |
+|    i    |     P     |      h     |
+|    f    |     F     |      a     |
+|    t    |     M     |      t     |
+|    g    |     L     |      f     |
+|    i    |     W     |      o     |
+|    f    |     W     |      r     |
+|    t    |     V     |      c     |
+|    g    |     N     |      h     |
+|    i    |     Z     |      r     |
+|    f    |     N     |      i     |
+|    t    |     L     |      s     |
+|    g    |     Z     |      t     |
+|    i    |     U     |      m     |
+|    f    |     F     |      a     |
+|    t    |     L     |      s     |
+|    g    |     S     |      m     |
+|    i    |     G     |      y     |
+|    f    |     K     |      f     |
+|    t    |     T     |      a     |
+|    g    |     S     |      m     |
+|    i    |     Q     |      i     |
+|    f    |     Q     |      l     |
+|    t    |     R     |      y     |
+|    g    |     P     |      j     |
+|    i    |     C     |      u     |
+|    f    |     X     |      s     |
+|    t    |     M     |      t     |
+|    g    |     K     |      e     |
+|    i    |     F     |      x     |
+|    f    |     H     |      c     |
+|    t    |     A     |      h     |
+|    g    |     G     |      a     |
+|    i    |     V     |      n     |
+|    f    |     L     |      g     |
+|    t    |     X     |      e     |
+|    g    |     J     |      d     |
+|    i    |     O     |      g     |
+|    f    |     Q     |      l     |
+|    t    |     T     |      a     |
+|    g    |     T     |      n     |
+|    i    |     K     |      c     |
+|    f    |     J     |      e     |
+|    t    |     L     |      s     |
+|__________________________________|
+
+Decrypted message:
+wheniwasaboyweweresopoorthatforchristmasmyfamilyjustexchangedglances
+
+Problem 9 (Message 1 ONLY):
+C:\Users\Meta\Documents\GitHub\Cryptography>python message_decryption_analysis.py --key worm --ldpc 6 --kl 4 --msg "PVVWA MKAZS TDUDK UJURB KZPMH DYMXS KUYQZ BDSIU OHFPA HVDIW EQPVV WAMNA NRKTE BXEYC LXZUV FWPZF YCDBH WTMPS UTKKV HAFZR PVVWA MNANR ZEHCE SAFKT WBKTA AVEOO XQEHJ QHTWA NHYQJ HYQPS TTJWH GARVE YFZNA RZZPV ZEYVR BPSIN NSRWO RFIJP LFDCN OKICP PKFOK FIQOD FZZSE FOFVY AASQN GLODO CAJUB QUKFD ZKVXH CEQSO PFKRF UPAZS DHSQP CRSNS VFDOK FDSBQ UKFDZ WJFDS VZPWI QPSOF KTKTA RVOHO IMPWF ZKTZZ ZSGQJ RVZYS FDPVV OKBJF EHLFE CEANH YQIWC IWIBQ AKYUP SGMCS JSAHK TAWUQ W"
+
+Analyzing message: PVVWAMKAZSTDUDKUJURBKZPMHDYMXSKUYQZBDSIUOHFPAHVDIWEQPVVWAMNANRKTEBXEYCLXZUVFWPZFYCDBHWTMPSUTKKVHAFZRPVVWAMNANRZEHCESAFKTWBKTAAVEOOXQEHJQHTWANHYQJHYQPSTTJWHGARVEYFZNARZZPVZEYVRBPSINNSRWORFIJPLFDCNOKICPPKFOKFIQODFZZSEFOFVYAASQNGLODOCAJUBQUKFDZKVXHCEQSOPFKRFUPAZSDHSQPCRSNSVFDOKFDSBQUKFDZWJFDSVZPWIQPSOFKTKTARVOHOIMPWFZKTZZZSGQJRVZYSFDPVVOKBJFEHLFECEANHYQIWCIWIBQAKYUPSGMCSJSAHKTAWUQW
+
+Message IC: 0.0422
+Message is likely polyalphabetic
+Most likely key length using IC test: 6.3354
+
+Repeated substrs of length >= 3:
+['PVVWAMNANR', 'VVWAMNANR', 'VWAMNANR', 'BQUKFDZ', 'WAMNANR', 'QUKFDZ', 'AMNANR', 'UKFDZ', 'MNANR', 'ANHYQ', 'NHYQ', 'KFDZ', 'NANR', 'KTA', 'HYQ', 'OKF', 'QPS', 'FDS', 'FDZ', 'ANR', 'HCE', 'ARV', 'FKT', 'ZZS', 'AZS']
+
+Most likely key lengths using Kasiski test:
+[2, 4, 8, 16, 3, 6, 12, 24, 48, 11, 22, 44, 13, 26, 52, 208, 104, 5, 7, 9, 10, 14, 18, 148, 36, 37, 74, 25, 132, 27, 33, 35, 50, 182, 66, 54, 70, 91, 108, 250, 125]
+
+Based on the above data, it seems highly likely that the keyword is of length 4 or 8.
+
+Using the Vigenere Square on the top 4 most frequent letters in each column assuming that each corresponds to 'e' results in the following options:
+Column 1 ['l', 'w', 'g', 'z', 'j', 'd']
+Column 2 ['o', 'd', 'n', 's', 'y', 'g']
+Column 3 ['r', 'b', 'g', 'v', 'a', 'e']
+Column 4 ['m', 'b', 'p', 'w', 'v', 'a']
+
+The above represents possible letters for keywords, with the furthest left being the most likely letter for each part of the keyword.
+Potential keyword: worm
+Message deciphered using keyword 'worm':
+thekeytodecryptingapolyalphabeticcipheristodeterminethekeywordthingscouldgetabitcomplicatedhoweverifthekeywordislongerthanthemessageitselfforthenthetechniquedescribedinthischapterbreaksdownbuthowcouldtwocorrespondentsremembersuchalongkeywordwellonewaytodoitmightbetoagreethatthekeywordistheentiretextofthedeclarationofindependenceortheconstitutionorthemilwaukeewhitepagesgettheidea
+
+Looks right! The keyword was worm!

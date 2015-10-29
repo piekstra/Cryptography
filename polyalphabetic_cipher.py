@@ -8,7 +8,6 @@ class PolyalphabeticCipher:
         self.engIC = 0.065
         # ic of perfectly random message (all letters equiprobable)
         self.ranIC = 0.038
-        self.vigenereSquare = self.constructVigenereSquare()
     
     ## getLetCounts
     #
@@ -106,67 +105,11 @@ class PolyalphabeticCipher:
         # transposing will add None values to even out the columns
         # the below filter will remove those None values
         return [filter(lambda a: a is not None, column) for column in transposed]
-    
-    ## constructVigenereSquare
-    #
-    # The Vigenere Square is a mapping of the simple shifts performed
-    # when encrypting a message using a Vigenere cipher keyword
-    # 
-    # In other words, keyword 'a' shifts letters by 0
-    # so vigengereSquare['a']['c'] = 'C'
-    def constructVigenereSquare(self): 
-        alphabet = list(string.ascii_uppercase)
-        lowerbet = list(string.ascii_lowercase)
-        
-        vigenereSquare = {}
-        for shift, rowLet in enumerate(lowerbet):
-            vigenereSquare[rowLet] = {}
-            for idx, colLet in enumerate(lowerbet):
-                vigenereSquare[rowLet][colLet] = alphabet[(idx+shift)%len(alphabet)]            
-        return vigenereSquare
-    
-    ## vigenereSquareDecrypt
-    #
-    # c is the cipher letter (i.e. 'N')
-    # p is the plaintext letter that the cipher letter
-    #   is expected to correspond to (i.e. 'e')
-    #
-    def vigenereSquareDecrypt(self, c, p='e'):    
-        for key, value in self.vigenereSquare[p].items():
-            if value == c:
-                return key
-        return None
-        
-    ## vigenereSquareEncrypt
-    #
-    # k is the keyword letter (i.e. 'j')
-    # p is the plaintext letter to encrypt (shift)
-    #
-    def vigenereSquareEncrypt(self, k, p):    
-        return self.vigenereSquare[k][p]
-        
-    ## vigenereDecrypt
-    #
-    # Decrypts a message using the key and the Vigenere Square
-    #
-    # msg is the message to decrypt
-    # key is the key used to encrypt the message
-    #
-    def vigenereDecrypt(self, msg, key):    
-        keyLen = len(key)
-        decryptedMsg = ""
-        for i in range(0, len(msg), keyLen):
-            # slice out a chunk of the message (len <= size of key)
-            chunk = msg[i:i+keyLen]
-            # decrypt the chunk using the key
-            for chunkIdx in range(0, len(chunk)):
-                decryptedMsg += self.vigenereSquareDecrypt(chunk[chunkIdx], key[chunkIdx])
-        return decryptedMsg
         
 if __name__ == "__main__":  
     polyCi = PolyalphabeticCipher()
     #polyCi.msgSplit("ABCDEFGHI", 3)
-    print polyCi.vigenereSquareDecrypt('N')
+    # print polyCi.vigenereSquareDecrypt('N')
     #print polyCi.vigenereSquareEncrypt('j', 'e')
     #print polyCi.getKeywordLength(460, 0.04713)
     # parser = argparse.ArgumentParser(description='Encrypt or decrypt a message!')

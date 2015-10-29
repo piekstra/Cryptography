@@ -36,16 +36,20 @@ class KasiskiTest:
             substrs = self.findAllRepeatedSubstrs(msg, i)
             for substr in substrs:
                 #if any(substr in item for item in repeatedSubstrs):
-                if any(item.startswith(substr) for item in repeatedSubstrs):
-                    continue
+                # if any(item.startswith(substr) for item in repeatedSubstrs):
+                    # continue
                 repeatedSubstrs.append(substr)   
         return repeatedSubstrs
     
     def getDistancesBetweenOccurrences(self, msg, substr):
         # get the indexes of each occurrence of substr in msg
         indexes = [m.start() for m in re.finditer(substr, msg)]
+        gaps = []
+        for i, index in enumerate(indexes):
+            for nextIndex in indexes[i+1:]:
+                gaps.append(nextIndex-index)
         # determine the distances between each occurrence of substr in msg
-        return [indexes[i+1] - indexes[i] for i in range(0, len(indexes)-1)]
+        return gaps
         
     def getPotentialKeyLens(self, msg, substr): 
         distances = self.getDistancesBetweenOccurrences(msg, substr)
@@ -78,7 +82,8 @@ class KasiskiTest:
 if __name__ == "__main__":  
     # debugging code
     kt = KasiskiTest()
-    msg = "YBR GPT OOY CBC GUG SNR TCW MVF RMU GJC MUI RCC UZV LJX BAJ DNU RTJ LLF KFF YBL JMZ NWG YNY JYB RRV HCG VLL MGH DKB NCN JHF NRW YNY JDV VTL ZGO RPX IAR QBY PNL YYI RLG YTV LYI GUG SEN OMZ NVA YSS IRP DXR SGS CGR UFS BHP GLN VLX BNI CJP BYT JXG BEJ NHF MZN BSR MYE NGS ZVA BBB REC YBR OCW LVR QFL RNL IER RNZ MSE MRA RGR NHT XGQ FRQ MZL OEY NHF QGI HBG CAI YIC YIU RJU OFT PFM CEC FFY LJF LTR LZG ORP XIE GMQ IBX YYN UVL LMV AYM OAQ PJX GUM ZMN ABI CZR LXC BAQ"
+    #msg = "YBR GPT OOY CBC GUG SNR TCW MVF RMU GJC MUI RCC UZV LJX BAJ DNU RTJ LLF KFF YBL JMZ NWG YNY JYB RRV HCG VLL MGH DKB NCN JHF NRW YNY JDV VTL ZGO RPX IAR QBY PNL YYI RLG YTV LYI GUG SEN OMZ NVA YSS IRP DXR SGS CGR UFS BHP GLN VLX BNI CJP BYT JXG BEJ NHF MZN BSR MYE NGS ZVA BBB REC YBR OCW LVR QFL RNL IER RNZ MSE MRA RGR NHT XGQ FRQ MZL OEY NHF QGI HBG CAI YIC YIU RJU OFT PFM CEC FFY LJF LTR LZG ORP XIE GMQ IBX YYN UVL LMV AYM OAQ PJX GUM ZMN ABI CZR LXC BAQ"
+    msg = "ABCXYZABCKLMNOPQRSABC"
     msg = msg.replace(' ' , '')
-    print self.getRepeatedSubstrs(msg, 3)
+    print kt.getMostLikelyKeyLens(msg, 'ABC')
         

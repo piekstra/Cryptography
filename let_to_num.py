@@ -15,7 +15,7 @@ letToNumDict = {
     'l' : [1, 26, 71, 98],
     'm' : [34, 87],
     'n' : [6, 17, 22, 31, 49, 58],
-    'o' : [2, 10, 41, 15, 66, 75, 83],
+    'o' : [2, 10, 41, 51, 66, 75, 83],
     'p' : [13, 18],
     'q' : [36],
     'r' : [21, 25, 65, 68, 92, 95],
@@ -38,20 +38,29 @@ def encipher(msg):
     return encryptedMsg    
 
 def decipher(msg):
+    decryptedMsg = ""
     for i in range(0, len(msg), 2):
-        diNum = msg[i:i+2]
+        diNum = int(msg[i:i+2])
         for let, nums in letToNumDict.items():
-            
-     
-
+            if diNum in nums:
+                decryptedMsg += let
+                break
+    return decryptedMsg 
+    
 if __name__ == "__main__":    
     parser = argparse.ArgumentParser(description='Replace letters with numbers!')
     parser.add_argument('--msg', dest='msg', action='store',
                        help='The message to encrypt or decrypt.', 
                        required=True)
+    parser.add_argument('-e', dest='encipher', action='store_true',
+                       help='Whether to encipher. (Default is to decipher)', 
+                       required=False)
 
     args = parser.parse_args()
     
-    print encipher(args.msg.lower().replace(' ', ''))
+    if args.encipher:
+        print encipher(args.msg.lower().replace(' ', ''))
+    else:
+        print decipher(args.msg.lower().replace(' ', ''))
     
    
