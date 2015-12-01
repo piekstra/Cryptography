@@ -1,3 +1,10 @@
+Caleb Piekstra
+MTH 491
+Polyalphabetic Cipher
+10/28/2015
+
+Note: I am using this .txt file because it was easier to format my tables
+
 Problem 1b:
 C:\Users\Meta\Documents\GitHub\Cryptography>python let_to_num.py -e --msg "mygrandmotherstartedwalkingfivemilesadaywhenshewassixtyshesninetyseventodayandwedontknowwheresheis"
 8762292537314387750716592100705795384761803301771431294082447987930146003361556280301206744297801500745086386228051274069322850762287944203138020457625522618090884117547706028080059721945216467374
