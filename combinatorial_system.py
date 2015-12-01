@@ -6,8 +6,8 @@ class CombinatorialSystem:
     #
     # The constructor
     #
-    def __init__(self, alphabet): 
-        self.alphabet = alphabet
+    def __init__(self): 
+        ""
     
     def letToInt(self, let):
         let = let.lower()
@@ -46,60 +46,100 @@ class CombinatorialSystem:
         return (b*c) % m
     
     def knapsack(self, sequence, v):
-        binary = []
+        binary = ""
+        # make sure the sequence is in descending order
         if sequence[-1] > sequence[0]:
             sequence = reversed(sequence)
         for num in sequence:
-            if v > num:
+            if v >= num:
                 v -= num
-                binary.append(1)
+                binary += '1'
             else:
-                binary.append(0)
+                binary += '0'
         return binary
     
-    def binToInt(self, binary):
-        return sum([2**idx for idx, b in enumerate(reversed(binary)) if b])
+    ## sums elements in sequence based on binary string
+    def knapsackSum(self, sequence, bin):
+        return sum([sequence[i] for i in range(len(sequence)) if int(bin[i])])
+        
         
     ## decrypt
-    def decrypt(self, msg, public_key, b, m, split=0):
+    def decrypt(self, msg, public_key, b, m, split=0, verbose=False):
         private_sequence = [self.bcmodm(b,c,m) for c in public_key]
         private_msg = [self.bcmodm(b,c,m) for c in msg]
-        print private_sequence
-        print private_msg
+        
+        if verbose:
+            print "Calculated key sequence:\n\t%s" % private_sequence
+            print "Calculated msg segments:\n\t%s" % private_msg
+            print   "\nBinary segments found using calculated key and msg\n"\
+                    "segments as the 'V' in the knapsack problem:"
+            print "\tBin\tDec\tLet"
+            
+        decrypted_msg = ""
         for v in private_msg:
             binSequence = self.knapsack(private_sequence, v)       
-            print binSequence            
-            if split != 0:
+            # whether to split the binary sequence into chunks 
+            # for individual binary to letter conversions
+            if split != 0:                
                 binSequences = [binSequence[i:i+split] for i in range(0, len(binSequence), split)]
-                for bin in binSequences:
-                    print self.intToLet(self.binToInt(bin))
+                for bin in binSequences:                
+                    dec = int(bin, 2)
+                    let = self.intToLet(dec)
+                    decrypted_msg += let
+                    if verbose:
+                        print "\t%s\t%d\t%c" % (bin, dec, let)
+                    
+        return decrypted_msg    
+    
+    def encrypt(self, msg, public_key, b, m, fill=0, verbose=False):
+        dec = map(self.letToInt, msg)
+        bins = [str(bin(x))[2:].zfill(fill) for x in dec]
+        fullBin = ''.join(bins)
+        seqLen = len(public_key)
+        largeBins = [fullBin[i:i+seqLen] for i in range(0, len(fullBin), seqLen)]
+        
+        
+        encryptedMsg = []
+        for largeBin in largeBins:
+            encryptedMsg.append(self.knapsackSum(public_key, largeBin))
+        
+        if verbose:
+            print "Let\tDec\tBin"
+            for i in range(len(msg)):
+                print "%c\t%d\t%s" % (msg[i], dec[i], bins[i])
+            print "\n%s\tKnapsack Sum" % 'Sequence Bin'.ljust(len(public_key))
+            for i in range(len(largeBins)):
+                print "%s\t%d" % (largeBins[i], encryptedMsg[i])
             
+        return encryptedMsg
         
 if __name__ == "__main__":    
     parser = argparse.ArgumentParser(description='Combinatorial System encryption and decryption.')
-    # parser.add_argument('--msg', dest='msg', action='store',
-                       # help='The message to decrypt.', 
-                       # required=True)
-    # parser.add_argument('--mfc', dest='mfc', action='store', nargs=2, type=str,
-                       # help='The two most frequent ciphertext letters.', required=False, default=None)
-    # parser.add_argument('--mfp', dest='mfp', action='store', nargs=2, type=str,
-                       # help='The two (most frequent) plaintext letters that the ciphertext letters are expected to be decrypted to based on frequency analysis.', 
-                       # required=False, default=['e', 't'])
-    # parser.add_argument('--sdf', dest='sdf', action='store_true', 
-                       # help="Whether to show the digraph frequencies of the ciphertext and the English Language.", 
-                       # required=False, default=False)
                        
     args = parser.parse_args()
     
-    alphabetSize = 32    
-    split = 5
     public_key = [24038,29756,34172,34286,38334,1824,18255,19723,143,17146,35366,11204,32395,12958,6479]
-    msg = [152472,116116,68546,165420,168261]
     # secret key
     b = 30966
     m = 47107
     
-    comb = CombinatorialSystem(alphabetSize)
-    comb.decrypt(msg, public_key, b, m, split=split)
-
+    comb = CombinatorialSystem()
+    
+    decrypt = True    
+    if decrypt:
+        msg = [152472,116116,68546,165420,168261]
+        split = 5
+        print "Decrypting:\n\t%s" % msg
+        print "Using public key:\n\t%s" % public_key
+        print "\tb = %d\n\tm = %d\n" % (b, m)
+        decryptedMsg = comb.decrypt(msg, public_key, b, m, split=split, verbose=True)
+        print "\nDecrypted Message: %s" % decryptedMsg
+    else:
+        msg = "hello world!"
+        fill = 5
+        print "Encrypting:\n\t%s" % msg
+        print "Using public key:\n\t%s" % public_key
+        print "\tb = %d\n\tm = %d\n" % (b, m)
+        encryptedMsg = comb.encrypt(msg, public_key, b, m, fill=fill, verbose=True)
+        print "\nEncrypted Message: %s" % encryptedMsg
 
