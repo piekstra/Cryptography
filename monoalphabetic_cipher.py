@@ -40,7 +40,7 @@ class MonoalphabeticCipher:
     # => s(r + p1 - r1 - p2) = c1 - c2(mod 26)
     # => s(p1 - p2) = c1 - c2(mod 26)
     #
-    def getAffineKey(self, p1, p2, c1, c2):
+    def getAffineKey(self, p1, p2, c1, c2, verbose=False):
         lhs = (p2 - p1)
         rhs = (c2 - c1) % 26
         
@@ -50,7 +50,8 @@ class MonoalphabeticCipher:
                 s = multKey
                 break
         if s == -1:
-            print "ERROR: could not find multiplicative key\n"
+            if verbose:
+                print "ERROR: could not find multiplicative key\n"
             return None
             
         rhs = c1 - s*p1%26
@@ -63,13 +64,14 @@ class MonoalphabeticCipher:
                 r = addKey
                 break
         if r == -1:
-            print "ERROR: could not find additive key\n"
+            if verbose:
+                print "ERROR: could not find additive key\n"
             return None
 
         # key is s, r
-        key = (s, r)
-        print "Key:", key, "\n"
-        return key
+        if verbose:
+            print "Key: %s\n" % ([s, r])
+        return (s, r)
         
     ## decrypt
     #
@@ -78,10 +80,11 @@ class MonoalphabeticCipher:
     # @param mfc - The two most frequent ciphertext letters
     # @param mfp - The two most frequent plaintext letters
     #
-    def decrypt(self, msg, mfc=None, mfp=None, verbose=False, showDigraphFrequencies=False):
+    def decrypt(self, msg, mfc=None, mfp=None, verbose=False, showDigraphFrequencies=False, auto=False, bruteAmt=None):
         # remove spaces from the message
         msg = ''.join(msg.split())        
-        if verbose: print "Attempting to decipher:\n", msg, "\n"
+        if verbose: 
+            print "Attempting to decipher:\n", msg, "\n"
         
         # get the message and default letter frequencies
         letFreq = LetterFrequency()
@@ -110,12 +113,23 @@ class MonoalphabeticCipher:
 
             print "Assuming that", mfc[0], "is equivalent to", mfp[0]
             print "Assuming that", mfc[1], "is equivalent to", mfp[1], "\n"
-        
         # get the affine key using the mfc letters and mfp letters
-        key = self.getAffineKey(*tuple(map(self.letToInt, mfp+mfc)))
+        key = self.getAffineKey(*tuple(map(self.letToInt, mfp+mfc)), verbose=verbose)   
+        
+        if auto:
+            iEnd = jEnd = 10
+            if bruteAmt:
+                iEnd = int(bruteAmt[0])
+                jEnd = int(bruteAmt[1])
+            maxIdx = len(freqTuples)-1
+            for i in range(0, iEnd):
+                for j in range(0, jEnd):
+                    if i != j and i <= maxIdx and j <= maxIdx:
+                        self.decrypt(msg, mfc=[freqTuples[i][0], freqTuples[j][0]], mfp=mfp, verbose=False, showDigraphFrequencies=showDigraphFrequencies)
         
         if key is None:
-            print "Unable to decipher using '%s'->'%s' and '%s'->'%s'\n" % (mfc[0], mfp[0], mfc[1], mfp[1])
+            if verbose:
+                print "Unable to decipher using '%s'->'%s' and '%s'->'%s'" % (mfc[0], mfp[0], mfc[1], mfp[1])
             return None
         
         # Use the key to decrypt
@@ -126,6 +140,9 @@ class MonoalphabeticCipher:
             if cipherInt == 0:
                 cipherInt = 26
             plaintext += chr(cipherInt + 96)
+            
+        if plaintext and not verbose:      
+            print "%s %s %s  %s " % (str(key).ljust(8), mfc[0], mfc[1], plaintext)
         
         return plaintext
         
@@ -142,16 +159,27 @@ if __name__ == "__main__":
     parser.add_argument('--sdf', dest='sdf', action='store_true', 
                        help="Whether to show the digraph frequencies of the ciphertext and the English Language.", 
                        required=False, default=False)
+    parser.add_argument('--brute', dest='brute', action='store_true', 
+                       help="Do it for me.", 
+                       required=False, default=False)
+    parser.add_argument('--ba', dest='ba', action='store', nargs=2, type=str,
+                       help="Do it for me.", 
+                       required=False, default=False)
                        
     args = parser.parse_args()
     
     #ciphertext = "LTG ZRH JGJ WYE DRK XUC SLK SCG UGZ KWI LXF CSA QUL JRA SWD HZZ HBG NHU MAH RUY PIY LES SSG SLJ RAG DOH NWZ CXK WGZ MIT LJR ABW JSZ SEZ KKD BJO KOZ GQS GJW VOK WVG L"
     
     monCi = MonoalphabeticCipher()
-    plaintext = monCi.decrypt(args.msg, args.mfc, args.mfp, verbose=True, showDigraphFrequencies=args.sdf)
-    if plaintext:
-        print "Plaintext:\n", plaintext
+    if args.brute:
+        print "\nBrute force decryption:\n"
+        print "%s %c %c  plaintext" % ("key".ljust(8), 'e', 't')
+        monCi.decrypt(args.msg, args.mfc, args.mfp, verbose=False, showDigraphFrequencies=args.sdf, auto=args.brute, bruteAmt=args.ba)
     else:
-        print "Could not decrypt the message"
+        plaintext = monCi.decrypt(args.msg, args.mfc, args.mfp, verbose=True, showDigraphFrequencies=args.sdf)
+        if plaintext:
+            print "Plaintext:\n", plaintext
+        else:
+            print "Could not decrypt the message"
 
 
