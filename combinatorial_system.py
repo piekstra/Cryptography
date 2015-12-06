@@ -73,18 +73,21 @@ class CombinatorialSystem:
             print "Calculated msg segments:\n\t%s" % private_msg
             print   "\nBinary segments found using calculated key and msg\n"\
                     "segments as the 'V' in the knapsack problem:"
-            print "\tBin\tDec\tLet"
+            print "\t%s\tDec\tLet" % "Bin".ljust(split)
             
         decrypted_msg = ""
         for v in private_msg:
             binSequence = self.knapsack(private_sequence, v)       
             # whether to split the binary sequence into chunks 
             # for individual binary to letter conversions
-            if split != 0:                
+            if split != 0:       
                 binSequences = [binSequence[i:i+split] for i in range(0, len(binSequence), split)]
                 for bin in binSequences:                
                     dec = int(bin, 2)
-                    let = self.intToLet(dec)
+                    if split == 5:
+                        let = self.intToLet(dec)
+                    elif split == 8:
+                        let = chr(dec)
                     decrypted_msg += let
                     if verbose:
                         print "\t%s\t%d\t%c" % (bin, dec, let)
@@ -118,17 +121,17 @@ if __name__ == "__main__":
                        
     args = parser.parse_args()
     
-    public_key = [24038,29756,34172,34286,38334,1824,18255,19723,143,17146,35366,11204,32395,12958,6479]
+    public_key = [181,182,362,649,939,438,813,542]
     # secret key
-    b = 30966
-    m = 47107
+    b = 996
+    m = 1459
     
     comb = CombinatorialSystem()
     
     decrypt = True    
     if decrypt:
-        msg = [152472,116116,68546,165420,168261]
-        split = 5
+        msg = [1631,3276,1086,2548,1631]
+        split = 8
         print "Decrypting:\n\t%s" % msg
         print "Using public key:\n\t%s" % public_key
         print "\tb = %d\n\tm = %d\n" % (b, m)
