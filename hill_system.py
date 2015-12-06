@@ -145,8 +145,8 @@ class HillSystem:
             # frequent letter
             # keep a running tally of the more frequent letters for each pair to see which one is
             # more likely to be the actual key
-            key1 = twoMostLikelyABValues[0]
-            key2 = twoMostLikelyABValues[1]
+            key1 = bestABValues[0][0]
+            key2 = bestABValues[1][0]
             msgDigraphs = diFreq.getUniqueDigraphs(msg)
             key1Lets = [self.diAndKeyToLet(digraph, key1, zeroSystem) for digraph in msgDigraphs]
             key2Lets = [self.diAndKeyToLet(digraph, key2, zeroSystem) for digraph in msgDigraphs]
@@ -171,7 +171,11 @@ class HillSystem:
         cdKeys = self.solveLinEqu(cdConsts)
         
         ## print out a description of the progress thus far
-        print "\nThe most frequent digraph (MFD) in the message was:\n\t%s' with frequency %0.2f%%" % (mfd, mfdf)
+        if digraphOverride is None:
+            print "\nThe most frequent digraph (MFD) in the message was:\n\t%s' with frequency %0.2f%%" % (mfd, mfdf)
+        else:
+            print "\nThe most frequent digraph (MFD) in the message was manually set as:\n\t%s'" % (mfd)
+            
         print "\nMapping '%s' to 'th' resulted in the following equations:\n\t%da + %db = %d\n\t%dc + %dd = %d" % (mfd, abConsts[0], abConsts[1], abConsts[2], cdConsts[0], cdConsts[1], cdConsts[2])
         print "\nLooking at digraphs following '%s' resulted in the following digraphs:\n\t%s" % (mfd, followingDigraphs)
         print "\nMapping the above digraphs to 'e*' resulted in the following equations:"
