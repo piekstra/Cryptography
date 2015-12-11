@@ -225,7 +225,7 @@ if __name__ == "__main__":
     # Initialize the crypto system
     cryptoSystem = HillSystem()    
     
-    msg = args.msg.replace(' ', '')
+    msg = args.msg.replace(' ', '').upper()
     
     if args.key:
         #key = [[3,2], [8,5]]
@@ -251,5 +251,7 @@ if __name__ == "__main__":
             plaintext = cryptoSystem.decrypt(msg, key, invertKey=args.invert)
             print "Plaintext:\n%s\n" % plaintext
     else:
+        print "Decrypting message:\n%s\n" % msg
+        print "Note:\n\tIf the program fails, it MAY work if you add a '-z' flag to the program call"
         cryptoSystem.super_decrypt(msg, args.mfd, args.zero_system)
         
